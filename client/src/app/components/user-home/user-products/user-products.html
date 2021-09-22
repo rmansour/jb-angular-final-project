@@ -1,0 +1,57 @@
+<div class="home__user">
+  <header class="home__user--header">
+    <div class="home__user--header-wrapper">
+      <div class="home__user--dropdown">
+        <button class="home__user--dropdown--dropbtn">Categories</button>
+        <div class="home__user--dropdown--content">
+          <a (click)="productsService.getProductsByCategoryId(0)">All Products</a>
+          <a (click)="productsService.getProductsByCategoryId(category.id)"
+             *ngFor="let category of categoriesService._categories">{{category.category}}</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="home__user--main">
+    <div class="home__user--main-products pe-2">
+      <div *ngIf="productsService.productsByCategoryId.length > 0 || productsService.productsByCategoryId"
+           class="home__user--main-products--container">
+        <app-product-card *ngFor="let product of productsService.productsByCategoryId"
+                          [product]="product"></app-product-card>
+      </div>
+
+      <div *ngIf="productsService.productsByCategoryId.length === 0 || !productsService.productsByCategoryId"
+           class="home__user--main-products--container-no-products">No
+        products
+      </div>
+    </div>
+
+    <div class="home__user--main-cart border-start border-2 p-3">
+      <header class="home__user--main-cart--header">
+        <h3>Your cart:</h3>
+      </header>
+
+      <div *ngFor="let singleShoppingCartItem of
+      shoppingCartItemsService.allOrdersByUser" class="row mt-3 home__user--main-cart--single-product">
+
+        <div class="col-2 home__user--main-cart--single-product-image">
+          <img alt="{{singleShoppingCartItem.product.product_img_src}}" class="card-img-top" src="">
+        </div>
+        <div
+          class="col-6 home__user--main-cart--single-product-name ">{{singleShoppingCartItem.product.product_name}}</div>
+        <div class="col-4 home__user--main-cart--single-product-qnt d-inline-flex">
+          <button class="btn">
+            <i class="bi bi-dash-circle-fill"></i>
+          </button>
+          <p>{{singleShoppingCartItem.qnt}}</p>
+          <button class="btn">
+            <i class="bi bi-plus-circle-fill"></i>
+          </button>
+          <button class="btn btn-danger">
+            <i class="bi bi-trash-fill "></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

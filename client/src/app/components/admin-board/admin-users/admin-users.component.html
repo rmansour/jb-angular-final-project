@@ -1,0 +1,125 @@
+<app-global-user-nav></app-global-user-nav>
+<div class="container admin__users">
+  <header>
+    <h3>Users:</h3>
+  </header>
+
+  <div class="admin__users--user-type-select">
+    <label for="admin__users--user-type-select-label">Select Type Of Users:</label>
+    <select class="form-select admin__users--user-type-select-label" id="admin__users--user-type-select-label"
+            aria-label="Default select example"
+            (change)="userService.filterUsersByType($event)">
+      <option selected>Select User Type:</option>
+      <option value="admins">Admins</option>
+      <option value="costumers">Costumers</option>
+    </select>
+  </div>
+
+  <div class="admin__users--table">
+    <table class="table table-bordered table-responsive table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">E-Mail</th>
+        <th scope="col">Last created cart</th>
+        <th scope="col">City</th>
+        <th scope="col">Street</th>
+        <th scope="col">User Role</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of userService.usersByType">
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.cartCreatedDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{user.city ?? 'No city specified' }}</td>
+        <td>{{user.street ?? 'No address specified'}}</td>
+        <td>{{user.isAdmin === 1 ? "Admin" : "Costumer"}}</td>
+        <td class="edit-btn">
+          <i class="fas fa-edit" (click)="handleUsersEdit(user.id)" data-bs-toggle="modal"
+             data-bs-target="#exampleModal"></i>
+        </td>
+        <td class="delete-btn">
+          <button class="btn btn-outline-danger" (click)="deleteUser(user.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">User Edit</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputUserName"
+                   value="{{singleUser ? singleUser.username : ''}}"
+                   [ngModel]="singleUser ? singleUser.username : ''"
+                   (ngModelChange)="singleUser.username=$event">
+            <label for="floatingInputUserName">Username:</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputEmail"
+                   value="{{singleUser ? singleUser.email : '' }}"
+                   [ngModel]="singleUser ? singleUser.email : ''"
+                   (ngModelChange)="singleUser.email=$event">
+            <label for="floatingInputEmail">Email:</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputStreet"
+                   value="{{singleUser ? singleUser.street : 'No address specified' }}"
+                   [ngModel]="singleUser ? singleUser.street : ''"
+                   (ngModelChange)="singleUser.street=$event">
+            <label for="floatingInputStreet">Street:</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputCity"
+                   value="{{singleUser ? singleUser.city : 'No city specified' }}"
+                   [ngModel]="singleUser ? singleUser.city : ''"
+                   (ngModelChange)="singleUser.city=$event">
+            <label for="floatingInputCity">City:</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingLastCreatedCart"
+                   value='{{singleUser ? (singleUser.cartCreatedDate | date: "dd/MM/yyyy hh:mm:ss") : "No cart found"}}'
+                   disabled>
+            <label for="floatingLastCreatedCart">Date of last created cart:</label>
+          </div>
+
+          <div class="roles-checkbox">
+            <h5>Select user roles:</h5>
+            <ul class="list-group" *ngIf="singleUser">
+              <li class="list-group-item" (change)="handleUserRole($event)">
+                <input class="form-check-input me-1" type="checkbox" [checked]="singleUser.isAdmin">
+                Check to enable admin privileges
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="submitUserModalChanges()" data-bs-dismiss="modal">Save
+            changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

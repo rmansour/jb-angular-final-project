@@ -1,0 +1,50 @@
+.admin__products {
+  margin-top: 1rem;
+
+  &--header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  &--table {
+    margin-top: 1rem;
+    height: 750px;
+    overflow-y: auto;
+  }
+
+  &--noProducts {
+    margin-top: 3rem;
+    width: 100%;
+    color: #ee6e73;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.edit-btn {
+  text-align: center !important;
+  height: 100%;
+  position: relative;
+
+  i {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.delete-btn {
+  text-align: center;
+  vertical-align: middle;
+}

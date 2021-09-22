@@ -14,15 +14,40 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+exports.getProductsByCategoryId = async (req, res) => {
+  console.log(req.body);
+
+  try {
+    await Products.findAll({where: {category_id: req.query.category_id}}).then(products => {
+      res.status(200).send(products);
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+};
+
 exports.addProduct = async (req, res) => {
   console.log(req.body);
 
-  Products.create(req.body).then(() => {
+  await Products.create(req.body).then(() => {
     res.status(200).send("Product added successfully!");
   }).catch(err => {
     console.log(err);
     res.status(500).send("Insert: couldn't create product!");
   })
+};
+
+exports.editProduct = async (req, res) => {
+  console.log(req.body);
+  try {
+    await Products.update(req.body, {where: {id: req.body.id}},{multi: true}).then(response => {
+      res.status(200).send(JSON.stringify(response));
+    })
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(JSON.stringify(e));
+  }
 };
 
 exports.deleteProduct = async (req, res) => {

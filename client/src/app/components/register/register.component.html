@@ -1,86 +1,198 @@
-<div class="col-md-12">
-  <div class="card card-container">
+<app-global-user-nav></app-global-user-nav>
+<div class="col-md-12 register__page">
+  <div class="card card-container register__page--card">
     <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      alt=""
       class="profile-img-card"
-     alt=""/>
+      id="profile-img"
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
     <form
-      *ngIf="!isSuccessful"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
-    >
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
-          required
-          minlength="3"
-          maxlength="20"
-          #username="ngModel"
-        />
-        <div class="alert-danger" *ngIf="username.errors && f.submitted">
-          <div *ngIf="username.errors.required">Username is required</div>
-          <div *ngIf="username.errors.minlength">
-            Username must be at least 3 characters
-          </div>
-          <div *ngIf="username.errors.maxlength">
-            Username must be at most 20 characters
+      (ngSubmit)="next()"
+      *ngIf="steps == 1"
+      [formGroup]="firstStepForm"
+      name="firstStepForm"
+      novalidate>
+      <!-- idNum -->
+      <div class="first-step">
+        <div class="form-group">
+          <label for="idNum">ID Number:</label>
+          <input [ngClass]="{'is-invalid': fStepSubmitted && fFirstStep.idNum.errors}"
+                 class="form-control"
+                 formControlName="idNum"
+                 id="idNum"
+                 name="idNum"
+                 required
+                 type="text"/>
+          <div *ngIf=" fFirstStep.idNum.errors" class="invalid-feedback">
+            <div *ngIf="fFirstStep.idNum.errors.required">ID number is required!</div>
+            <div *ngIf="fFirstStep.idNum.errors.pattern">ID number must only contain numbers!</div>
+            <div *ngIf="fFirstStep.idNum.errors.minlength">ID number is too short, please enter more than 8 digits
+              and maximum 10!
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          name="email"
-          [(ngModel)]="form.email"
-          required
-          email
-          #email="ngModel"
-        />
-        <div class="alert-danger" *ngIf="email.errors && f.submitted">
-          <div *ngIf="email.errors.required">Email is required</div>
-          <div *ngIf="email.errors.email">
-            Email must be a valid email address
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="6"
-          #password="ngModel"
-        />
-        <div class="alert-danger" *ngIf="password.errors && f.submitted">
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 6 characters
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary btn-block">Sign Up</button>
-      </div>
 
-      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
+        <!-- email -->
+        <div class="form-group">
+          <label for="email">E-Mail:</label>
+          <input
+            [ngClass]="{'is-invalid': fStepSubmitted && fFirstStep.email.errors}"
+            class="form-control"
+            formControlName="email"
+            id="email"
+            name="email"
+            required
+            type="email"
+          />
+          <div *ngIf="fFirstStep.email.errors && fStepSubmitted" class="invalid-feedback">
+            <div *ngIf="fFirstStep.email.errors.required">Email is required!</div>
+            <div *ngIf="fFirstStep.email.errors.email">
+              Your email must be a valid email address!
+            </div>
+          </div>
+        </div>
+
+        <!-- password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            [ngClass]="{ 'is-invalid': fStepSubmitted && fFirstStep.password.errors }"
+            class="form-control"
+            formControlName="password"
+            id="password"
+            name="password"
+            type="password"
+          />
+          <div *ngIf="fFirstStep.password.errors && fFirstStep.submitted" class="invalid-feedback">
+            <div *ngIf="fFirstStep.password.errors.required">Password is required</div>
+            <div *ngIf="fFirstStep.password.errors.minlength">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+        <!-- confirm password -->
+        <div class="form-group">
+          <label for="password">Confirm password</label>
+          <input
+            [ngClass]="{ 'is-invalid': fStepSubmitted && fFirstStep.confirmPassword.errors }"
+            class="form-control"
+            formControlName="confirmPassword"
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+          />
+          <div *ngIf="fStepSubmitted && fFirstStep.confirmPassword.errors" class="invalid-feedback">
+            <div *ngIf="fFirstStep.confirmPassword.errors.required">
+              Please confirm your password!
+            </div>
+            <div *ngIf="fFirstStep.confirmPassword.errors.matching">
+              Passwords do not match!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group register-next-btn">
+          <button *ngIf="steps == 1" class="btn btn-outline-primary" type="submit">Next</button>
+        </div>
+        <div *ngIf="fStepSubmitted" class="alert alert-warning mt-3">
+          {{ errorMessage }}
+        </div>
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isSuccessful">
+
+    <form (ngSubmit)="onSubmit()" *ngIf="steps == 2"
+          [formGroup]="secondStepForm"
+          name="secondStepForm"
+          novalidate>
+      <div class="second-step">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input
+            [ngClass]="{'is-invalid': sStepSuccessful && fSecondStep.firstName.errors}"
+            class="form-control"
+            formControlName="firstName"
+            id="firstName"
+            name="firstName"
+            type="text"
+          />
+          <div *ngIf="sStepSuccessful && fSecondStep.firstName.errors" class="invalid-feedback">
+            <div *ngIf="fSecondStep.firstName.errors">First name is required!</div>
+            <div *ngIf="fSecondStep.firstName.errors.minlength">
+              First name must be at least 3 characters!
+            </div>
+            <div *ngIf="fSecondStep.firstName.errors.maxlength">
+              First name must be at most 20 characters!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input
+            [ngClass]="{'is-invalid': sStepSuccessful && fSecondStep.lastName.errors}"
+            class="form-control"
+            formControlName="lastName"
+            id="lastName"
+            name="lastName"
+            type="text"
+          />
+          <div *ngIf="sStepSuccessful && fSecondStep.lastName.errors" class="invalid-feedback">
+            <div *ngIf="fSecondStep.lastName.errors">Last name is required!</div>
+            <div *ngIf="fSecondStep.lastName.errors.minlength">
+              Last name must be at least 2 characters!
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="street">Address:</label>
+          <input [ngClass]="{ 'is-invalid': sStepSuccessful && fSecondStep.street.errors }"
+                 class="form-control"
+                 formControlName="street"
+                 id="street"
+                 name="street"
+                 required
+                 type="text"
+          />
+          <div *ngIf="fSecondStep.street.errors && sStepSuccessful" class="invalid-feedback">
+            <div *ngIf="fSecondStep.street.errors.required">Address is required!</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City:</label>
+          <input [ngClass]="{ 'is-invalid': sStepSuccessful && fSecondStep.city.errors }"
+                 class="form-control"
+                 formControlName="city"
+                 id="city"
+                 name="city"
+                 required
+                 type="text"
+          />
+          <div *ngIf="fSecondStep.city.errors && sStepSuccessful" class="invalid-feedback">
+            <div *ngIf="fSecondStep.city.errors.required">City is required!</div>
+          </div>
+        </div>
+
+        <div class="form-group btn-group-register">
+          <button (click)="previous()" class="btn btn-primary btn-block" type="button">Previous Step</button>
+          <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+        </div>
+
+
+        <div *ngIf="fSecondStep.submitted && isSignUpFailed" class="alert alert-warning">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </form>
+
+    <button (click)="onSubmit()" *ngIf="secondStep == true">Register</button>
+    <div *ngIf="isRegistrationSuccessful" class="alert alert-success">
       Your registration is successful!
     </div>
   </div>
+</div>
+<div class="col-md-4">
+
 </div>

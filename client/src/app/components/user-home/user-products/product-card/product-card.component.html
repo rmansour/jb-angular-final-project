@@ -1,0 +1,33 @@
+<div class="card product-card" style="width: 20rem;">
+  <div class="card-title-and-body">
+    <img alt="" class="card-img-top" src="https://via.placeholder.com/150">
+    <div class="card-body">
+      <h5 class="card-title">{{product.product_name}}</h5>
+      <p class="card-text">Price: {{product.price}}₪</p>
+    </div>
+  </div>
+
+  <div class="card-add-product">
+    <button (click)="addOrSubtractQnt(2)" [disabled]="itemToSubmit.qnt <=1"
+            class="btn btn-outline-secondary rounded-circle">
+      <i class="bi bi-dash-lg"></i>
+    </button>
+    <!--    [disabled]="itemToSubmit.qnt < 1"-->
+
+    <input [(ngModel)]="this.itemToSubmit.qnt"
+           (change)="checkItemQntBelowZero($event)"
+           [ngClass]="{'is-invalid': itemToSubmit.qnt < 1}"
+           class="form-control card-add-product-clicked-input"
+           type="text">
+    <button (click)="addOrSubtractQnt(1)" class="btn btn-outline-secondary rounded-circle">
+      <i class="bi bi-plus-lg"></i>
+    </button>
+
+  </div>
+  <div class="form-group border-top">
+    <button class="btn btn-outline-primary card-add-product-add-to-cart-btn" (click)="submitProductToOrder()">
+      Add to cart
+    </button>
+  </div>
+
+</div>

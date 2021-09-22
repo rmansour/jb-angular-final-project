@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from './_services/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {UserAdminServiceService} from "./_services/user-admin-service.service";
+import {ProductsService} from "./_services/products.service";
+import {OrdersService} from "./_services/orders.service";
 
 @Component({
   selector: 'app-root',
@@ -7,27 +9,13 @@ import { TokenStorageService } from './_services/token-storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  private roles: string[] = [];
-  isLoggedIn = false;
-  showAdminBoard = false;
-  username?: string;
-
-  constructor(private tokenStorageService: TokenStorageService) { }
-
-  ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.username = user.username;
-    }
+  constructor(private userAdminServiceService: UserAdminServiceService, private productsService: ProductsService, private ordersService: OrdersService,) {
   }
 
-  logout(): void {
-    this.tokenStorageService.signOut();
-    window.location.reload();
+  async ngOnInit() {
+    await this.productsService.getAllProducts();
+    await this.ordersService.getAllOrders();
+
+    this.userAdminServiceService.checkUser();
   }
 }

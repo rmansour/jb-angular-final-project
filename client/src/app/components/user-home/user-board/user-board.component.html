@@ -1,0 +1,33 @@
+<app-global-user-nav></app-global-user-nav>
+<div class="container user__order--div">
+  <header class="jumbotron">
+    <h1>Orders</h1>
+  </header>
+
+  <div class="user__order--div--table">
+    <table class="table table-bordered table-responsive table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Shipping City</th>
+        <th scope="col">Shipping Address</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Shipping Date</th>
+        <th scope="col">Last Four Digits</th>
+        <th scope="col">Total Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of ordersService.allOrdersByUser">
+        <th scope="row">{{order.id}}</th>
+        <td>{{order.shippingCity}}</td>
+        <td>{{order.shippingAddress}}</td>
+        <td>{{order.orderDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{order.shippingDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>****{{order.lastFourDigitsOfPaymentMethod}}</td>
+        <td>{{order.totalPrice}}₪</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -12,8 +12,10 @@ module.exports = function (app) {
 
 
   app.get("/products/getProducts", productsController.getProducts);
+  app.get("/products/getProductsByCategoryId", productsController.getProductsByCategoryId);
 
   app.post("/products/addProduct", productsController.addProduct);
+  app.post("/products/editProduct", productsController.editProduct);
   app.post("/products/deleteProduct", productsController.deleteProduct);
 
 };

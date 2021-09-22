@@ -1,0 +1,25 @@
+.navbar {
+  padding: .5rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+
+  & .navbar-title {
+    line-height: 1.85;
+    padding: 0;
+  }
+
+  & .first-nav-group {
+    width: 50%;
+    display: flex;
+
+    & ul {
+      flex-direction: row;
+
+    }
+  }
+}
+
+.global__nav--user-section {
+  display: flex;
+}

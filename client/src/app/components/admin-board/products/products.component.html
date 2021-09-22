@@ -1,0 +1,56 @@
+<app-global-user-nav></app-global-user-nav>
+
+<div class="container admin__products">
+  <header class="admin__products--header">
+    <h3>Products:</h3>
+    <button class="btn btn-outline-primary" data-bs-toggle="modal"
+            data-bs-target="#addProductModal">Add Product
+    </button>
+  </header>
+
+  <div class="admin__products--category-select">
+    <select class="form-select" aria-label="Default select example" (change)="handleSelectedCategory($event)">
+      <option selected>Select all products</option>
+      <option *ngFor="let category of categoriesService._categories"
+              value="{{category.id}}">{{category.category}}</option>
+    </select>
+  </div>
+
+  <div class="admin__products--table">
+    <div *ngIf="productsService.productsByCategoryId.length !== 0">
+      <table class="table table-bordered table-responsive table-hover">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Product Image</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of productsService.productsByCategoryId">
+          <th scope="row">{{product.id}}</th>
+          <td>{{product.product_name}}</td>
+          <td>{{product.price}}₪</td>
+          <td>{{product.product_img_src}}</td>
+          <td class="edit-btn">
+            <i class="fas fa-edit" (click)="handleProductEdit(product)" data-bs-toggle="modal"
+               data-bs-target="#editProductModal"></i>
+          </td>
+          <td class="delete-btn">
+            <button class="btn btn-outline-danger" (click)="handleProductDelete(product.id)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="productsService.productsByCategoryId.length === 0" class="admin__products--noProducts">
+      <h3>No products at this time, please check again later!</h3>
+    </div>
+  </div>
+
+  <app-add-product-model></app-add-product-model>
+  <app-edit-product-model [singleProductEdit]="singleProductEdit"></app-edit-product-model>
+</div>

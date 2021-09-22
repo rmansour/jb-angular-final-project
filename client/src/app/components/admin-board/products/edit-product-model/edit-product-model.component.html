@@ -1,0 +1,46 @@
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Product Edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputProductName"
+                 value="{{singleProductEdit ? singleProductEdit.product_name : ''}}"
+                 [ngModel]="singleProductEdit ? singleProductEdit.product_name : ''"
+                 (ngModelChange)="singleProductEdit.product_name=$event">
+          <label for="floatingInputProductName">Product Name:</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInputCategoryID"
+                 value="{{singleProductEdit ? singleProductEdit.category_id : ''}}"
+                 [ngModel]="singleProductEdit ? singleProductEdit.category_id : ''"
+                 (ngModelChange)="singleProductEdit.category_id=$event"/>
+          <label for="floatingInputCategoryID">Category ID:</label>
+        </div>
+        <label>Product Price:</label>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" aria-label="Price"
+                 value="{{singleProductEdit ? singleProductEdit.price : ''}}"
+                 [ngModel]="singleProductEdit ? singleProductEdit.price : ''"
+                 (ngModelChange)="singleProductEdit.price=$event"
+                 (click)="select($event)">
+          <span class="input-group-text">₪</span>
+        </div>
+
+        <div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" (click)="submitProductChanges()">
+          Save
+          changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

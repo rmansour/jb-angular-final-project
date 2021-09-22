@@ -1,0 +1,5 @@
+<app-global-user-nav></app-global-user-nav>
+<div class="home__container" *ngIf="userAdminServiceService.isLoggedIn">
+  <app-admin-board class="admin-homeDiv" *ngIf="userAdminServiceService.isAdmin === 1"></app-admin-board>
+  <app-user-products class="user-homeDiv" *ngIf="userAdminServiceService.isAdmin === 0"></app-user-products>
+</div>

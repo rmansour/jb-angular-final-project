@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+  <div class="first-nav-group">
+    <a href="#" class="navbar-title navbar-brand">Fake Online Store</a>
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <!--  admin section  -->
+      <li class="nav-item" *ngIf="userAdminServiceService.isLoggedIn && userAdminServiceService.isAdmin === 1">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            Admin Actions
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="users">Users</a></li>
+            <li><a class="dropdown-item" href="products">Products</a></li>
+            <li><a class="dropdown-item" href="deliveries">Deliveries</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <!--   user section   -->
+      <div class="nav-item global__nav--user-section" *ngIf="userAdminServiceService.isLoggedIn
+      &&userAdminServiceService.isAdmin ===
+       0">
+        <li class="nav-item">
+          <a href="user" class="nav-link" routerLink="/user">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a href="deliveries" class="nav-link" routerLink="/deliveries">Deliveries</a>
+        </li>
+      </div>
+    </ul>
+  </div>
+
+  <ul class="navbar-nav ml-auto login-container" *ngIf="!userAdminServiceService.isLoggedIn">
+    <li class="nav-item">
+      <a href="register" class="nav-link" routerLink="/register">Sign Up</a>
+    </li>
+    <li class="nav-item">
+      <a href="login" class="nav-link" routerLink="/login">Login</a>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav ml-auto" *ngIf="userAdminServiceService.isLoggedIn">
+    <li class="nav-item">
+      <a href="profile" class="nav-link" routerLink="/profile">{{ userAdminServiceService.user.firstName }}</a>
+    </li>
+    <li class="nav-item">
+      <a href class="nav-link" (click)="userAdminServiceService.logout()">Log out</a>
+    </li>
+  </ul>
+</nav>

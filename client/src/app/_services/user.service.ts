@@ -1,22 +1,41 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-
-const API_URL = 'http://localhost:8080/api/test/';
+import {User} from "../models/models";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) {
+  users: Array<User> = [];
+  usersByType: Array<User> = [];
+
+  constructor(private apiService: ApiService) {
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + 'user', {responseType: 'text'});
+  async getAllUsers() {
+    this.users = await this.apiService.createGetService('/users/getAllUsers') as Array<User>;
+    console.log(this.users);
+    this.usersByType = this.users
   }
 
-  getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + 'admin', {responseType: 'text'});
+  filterUsersByType(isAdmin: any) {
+    let tmpUsersArr = [...this.users];
+
+    if (isAdmin.target.value === 'admins') {
+      this.usersByType = tmpUsersArr.filter(user => user.isAdmin === 1);
+      return;
+    } else if (isAdmin.target.value === 'costumers') {
+      this.usersByType = tmpUsersArr.filter(user => user.isAdmin === 0);
+      return;
+    } else {
+      this.usersByType = tmpUsersArr;
+    }
+  }
+
+  async deleteUserById(userId: number) {
+    await this.apiService.createPostService('/users/deleteUser', {id: userId});
+    await this.getAllUsers();
   }
 }
+

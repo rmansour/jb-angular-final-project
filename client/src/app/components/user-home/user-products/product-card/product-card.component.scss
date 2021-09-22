@@ -1,0 +1,31 @@
+.product-card {
+  margin-right: 2rem;
+  margin-bottom: 1.2rem;
+  height: 500px;
+  border-width: .5px;
+  border-color: rgba(0, 0, 0, .15);
+  flex-direction: column;
+  justify-content: space-between;
+
+  & img {
+    border-bottom: solid lightgrey;
+    border-width: .5px;
+    border-color: rgba(0, 0, 0, .15);
+  }
+
+  & .card-add-product {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &-clicked-input {
+      max-width: 50%;
+    }
+
+    &-add-to-cart-btn {
+      width: 100%;
+    }
+
+  }
+
+}

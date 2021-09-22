@@ -29,3 +29,33 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+.btn-block {
+  margin-top: 1rem;
+}
+
+.register-next-btn {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-group-register {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.register-alert {
+  margin-top: 1rem;
+}
+
+.register__page {
+
+  &--card {
+
+    &-header {
+      text-align: center;
+    }
+  }
+}

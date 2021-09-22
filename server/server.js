@@ -42,10 +42,6 @@ app.get("/", (req, res) => {
 });
 
 
-// initial() function helps us to create 2 rows in database.
-// In development, you may need to drop existing tables and re-sync database. So you can use force: true as code below.
-// Learn how to implement Sequelize One-to-Many Relationship at: https://bezkoder.com/sequelize-associate-one-to-many/
-
 function initial() {
     Role.create({
         id: 1,
@@ -59,7 +55,8 @@ function initial() {
 
 }
 
-//{force:true}
+// {force:true}
+// {alter: true}
 db.sequelize.sync().then(() => {
     // console.log('Drop and Resync Db');
     // initial();
@@ -69,6 +66,9 @@ db.sequelize.sync().then(() => {
 require('./app/routes/auth')(app);
 require('./app/routes/user')(app);
 require('./app/routes/products')(app);
+require('./app/routes/categories')(app);
+require('./app/routes/orders')(app);
+require('./app/routes/shoppingCartItem')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

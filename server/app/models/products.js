@@ -6,6 +6,11 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
       allowNull: false
     },
+    // product_id: {
+    //   type: Sequelize.INTEGER,
+    //   primaryKey: true,
+    //   allowNull: false
+    // },
     product_name: {
       type: Sequelize.STRING,
       allowNull: false
