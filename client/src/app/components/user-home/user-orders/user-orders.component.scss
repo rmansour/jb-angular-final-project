@@ -1,0 +1,62 @@
+.card {
+  background-color: #f7f7f7;
+  padding: 15px 25px 30px;
+  //margin: 30px auto 25px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.orders__page {
+  margin: 30px auto auto;
+  //width: 100%;
+  height: calc(100vh - 10vh);
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  &--shopping-cart-review {
+
+    & .card {
+      height: 80%;
+      overflow-y: auto;
+      margin-right: auto;
+    }
+  }
+
+  &--form--details {
+    height: max-content;
+
+    &--header {
+      margin-bottom: 1rem;
+    }
+
+    &--form {
+      align-self: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+
+      & .form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 1rem;
+
+        & label {
+          width: 50%;
+          margin-bottom: 5px;
+          font-weight: 450;
+        }
+      }
+
+      .form-submit-btn {
+        justify-content: flex-end;
+      }
+    }
+  }
+}

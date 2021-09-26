@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../_services/auth.service';
 import {TokenStorageService} from '../../_services/token-storage.service';
-import {AbstractControl, FormBuilder, FormGroup, Validators,} from '@angular/forms';
-import {OrdersService} from "../../_services/orders.service";
-import {ProductsService} from "../../_services/products.service";
-import {Router} from "@angular/router";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {OrdersService} from '../../_services/orders.service';
+import {ProductsService} from '../../_services/products.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.role = this.tokenStorage.getUser().roles;
-        // window.location.reload();
         this.router.navigate(['user-home']);
       },
       err => {

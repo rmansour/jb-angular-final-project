@@ -1,14 +1,14 @@
-const db = require("../models");
+const db = require('../models');
 const Users = db.users;
 const Orders = db.orders;
 const ShoppingCartItems = db.shoppingCartItem;
 
 exports.userBoard = (req, res) => {
-  res.status(200).send("User Page");
+  res.status(200).send('User Page');
 };
 
 exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Page");
+  res.status(200).send('Admin Page');
 };
 
 exports.getAllUsers = async (req, res) => {
@@ -19,8 +19,8 @@ exports.getAllUsers = async (req, res) => {
   }).catch(error => {
     console.log(error);
     res.status(500).send('An error occurred:', error);
-  })
-}
+  });
+};
 
 exports.deleteUser = async (req, res) => {
   console.log(req.body);
@@ -38,9 +38,9 @@ exports.deleteUser = async (req, res) => {
     if (!userOrders && !userShoppingCartItems) {
       Users.destroy({where: {id: userId}}).then((response) => {
         res.status(200).send(JSON.stringify(response));
-      })
+      });
     } else {
-      res.status(500).send(`Couldn't delete user.`)
+      res.status(500).send(`Couldn't delete user.`);
     }
   } catch (error) {
     console.log(JSON.stringify(error));
@@ -55,10 +55,24 @@ exports.updateUser = async (req, res) => {
   try {
     await Users.update(updateObj, {where: {id: updateObj.id}}, {multi: true}).then((response) => {
       res.status(200).send(JSON.stringify(response));
-    })
+    });
 
   } catch (error) {
     console.log(JSON.stringify(error));
     res.status(500).send(JSON.stringify(error));
+  }
+};
+
+exports.getUserById = async (req, res) => {
+  try {
+    await Users.findOne({
+      where: {id: req.body.id},
+      attributes: ['email', 'city', 'street', 'IDnum', 'firstName', 'lastName']
+    }).then(result => {
+      res.status(200).send(result);
+    })
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({message: "Can't retrieve user by id."})
   }
 };

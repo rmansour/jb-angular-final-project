@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -19,7 +19,9 @@ import {ProductsComponent} from './components/admin-board/products/products.comp
 import {AdminUsersComponent} from './components/admin-board/admin-users/admin-users.component';
 import {AddProductModelComponent} from './components/admin-board/products/add-product-model/add-product-model.component';
 import {EditProductModelComponent} from './components/admin-board/products/edit-product-model/edit-product-model.component';
-import {HomeUserComponent} from "./components/user-home/user-products/user-products";
+import {HomeUserComponent} from './components/user-home/user-products/user-products';
+import {UserCartSingleProductComponent} from './components/user-home/user-cart-single-product/user-cart-single-product.component';
+import { UserOrdersComponent } from './components/user-home/user-orders/user-orders.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {HomeUserComponent} from "./components/user-home/user-products/user-produ
     AdminUsersComponent,
     AddProductModelComponent,
     EditProductModelComponent,
-    HomeUserComponent
+    HomeUserComponent,
+    UserCartSingleProductComponent,
+    UserOrdersComponent,
   ],
   imports: [
     BrowserModule,

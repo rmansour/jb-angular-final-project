@@ -25,6 +25,7 @@ module.exports = function(app) {
 
     app.post('/users/signup', authController.signup);
     app.get('/users/getAllUsers', usersController.getAllUsers);
+    app.post('/users/getUserById', usersController.getUserById);
     app.post('/users/deleteUser', usersController.deleteUser);
     app.post('/users/updateUser', usersController.updateUser);
 };

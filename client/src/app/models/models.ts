@@ -32,9 +32,9 @@ export class Order {
   totalPrice: number;
   shippingCity: string;
   shippingAddress: string;
-  lastFourDigitsOfPaymentMethod: string;
+  creditCardNumber: string;
 
-  constructor(id: number, userId: number, orderDate: string, shippingDate: string, totalPrice: number, shippingCity: string, shippingAddress: string, lastFourDigitsOfPaymentMethod: string) {
+  constructor(id: number, userId: number, orderDate: string, shippingDate: string, totalPrice: number, shippingCity: string, shippingAddress: string, creditCardNumber: string) {
     this.id = id;
     this.userId = userId;
     this.orderDate = orderDate;
@@ -42,7 +42,7 @@ export class Order {
     this.totalPrice = totalPrice;
     this.shippingCity = shippingCity;
     this.shippingAddress = shippingAddress;
-    this.lastFourDigitsOfPaymentMethod = lastFourDigitsOfPaymentMethod;
+    this.creditCardNumber = creditCardNumber;
   }
 }
 
@@ -63,14 +63,14 @@ export class OrderItem {
 }
 
 export class ShoppingCartItem {
-  //id: number;
+  id: number;
   userId: number;
   productId: number;
   qnt: number;
-  product: Product;
+  product?: Product;
 
-  constructor(userId: number, productId: number, qnt: number, product: Product) {
-    //this.id = id;
+  constructor(id: number, userId: number, productId: number, qnt: number, product?: Product) {
+    this.id = id;
     this.userId = userId;
     this.productId = productId;
     this.qnt = qnt;

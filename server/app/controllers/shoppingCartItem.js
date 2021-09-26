@@ -6,7 +6,7 @@ exports.deleteShoppingCartItems = async (req, res) => {
   console.log(req.body);
 
   try {
-    await ShoppingCartItems.destroy({where: {userId: req.body.userId}}).then((response) => {
+    await ShoppingCartItems.destroy({where: {id: req.body.id}}).then((response) => {
       res.status(200).send(JSON.stringify(response));
     });
   } catch (e) {
@@ -28,28 +28,35 @@ exports.getShoppingItemsByUserID = async (req, res) => {
   }
 };
 
-exports.upsertShoppingCartItem = (req, res) => {
-  console.log(req.body);
+exports.upsertShoppingCartItem = async (req, res) => {
   if (req.body.id === 0) {
-    console.log(`ProductID can't be 0!`);
-    res.status(500).send({message: `ProductID can't be 0!`});
-    return;
+    await ShoppingCartItems.findOne({
+      where: {
+        productId: req.body.productId, userId: req.body.userId
+      }
+    }).then(foundOne => {
+      if (foundOne) {
+        console.log('Product already exists', foundOne.dataValues);
+        res.status(500).send({message: `Product already in your cart, please edit the quantity there.`});
+      } else {
+        ShoppingCartItems.create(req.body).then(result => {
+          console.log(result.dataValues);
+          console.log(`Created new shopping cart item.`);
+          res.status(200).send(result);
+        }).catch(error => {
+          console.log(error);
+          res.status(500).send({message: `Couldn't add item to your shopping cart!`});
+        });
+      }
+    });
+  } else {
+    await ShoppingCartItems.findOne({where: {id: req.body.id}}).then(foundOne => {
+      if (foundOne) {
+        ShoppingCartItems.update(req.body, {where: {id: foundOne.dataValues.id}}, {multi: true}).then(result => {
+          console.log(result);
+          res.status(200).send(result);
+        });
+      }
+    });
   }
-
-  // check if already exists
-  ShoppingCartItems.findOne({where: {productId: req.body.productId, userId: req.body.userId}}).then(result => {
-    if (result) {
-      console.log('Product already exists, updating quantity...');
-      ShoppingCartItems.update(req.body, {where: {productId: req.body.productId}}, {multi: true}).then(result => {
-        res.status(200).send(result);
-      });
-    } else {
-      ShoppingCartItems.create(req.body).then(result => {
-        res.status(200).send(result);
-      }).catch(error => {
-        console.log(error);
-        res.status(500).send({message: `Couldn't add item to your shopping cart!`});
-      });
-    }
-  });
 };

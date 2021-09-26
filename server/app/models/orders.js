@@ -30,7 +30,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false
     },
-    lastFourDigitsOfPaymentMethod: {
+    creditCardNumber: {
       type: Sequelize.STRING,
       allowNull: false
     },

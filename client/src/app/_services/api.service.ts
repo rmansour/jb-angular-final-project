@@ -1,11 +1,12 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {throwError} from 'rxjs';
-import {ErrorsService} from './error.service';
-import {SettingsService} from './settings.service';
+import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
+import {throwError} from "rxjs";
+import {ErrorsService} from "./error.service";
+import {SettingsService} from "./settings.service";
+import Swal from "sweetalert2";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ApiService {
 
@@ -18,8 +19,15 @@ export class ApiService {
         await this.httpClient.post(this.settings.baseUrl + url, ob).subscribe(data => {
           resolve(data);
         }, error => {
-          this.errorService.errorHandelingHttp(error);
-          console.log('Oops!', error, error.error);
+          //this.errorService.errorHandelingHttp(error);
+          console.log("Oops!", error, error.error);
+          Swal.fire({
+            text: error.error.message,
+            icon: "error",
+            title: "Error",
+            showConfirmButton: false,
+            timer: 3000
+          });
         });
       } catch (err) {
         console.log("ERROR : ", err);
@@ -36,7 +44,7 @@ export class ApiService {
           resolve(data);
         }, error => {
           this.errorService.errorHandelingHttp(error);
-          console.log('Oops', error, error.error);
+          console.log("Oops", error, error.error);
         });
       } catch (err) {
         console.log("ERROR : ", err);
@@ -47,7 +55,7 @@ export class ApiService {
 
   private static handleError(error: any) {
     let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+      error.status ? `${error.status} - ${error.statusText}` : "Server error";
     console.error(errMsg);
     return throwError(errMsg);
   }

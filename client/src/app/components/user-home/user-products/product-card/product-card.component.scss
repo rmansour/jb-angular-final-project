@@ -1,7 +1,8 @@
 .product-card {
+  display: flex;
   margin-right: 2rem;
   margin-bottom: 1.2rem;
-  height: 500px;
+  height: 600px;
   border-width: .5px;
   border-color: rgba(0, 0, 0, .15);
   flex-direction: column;
@@ -16,7 +17,15 @@
   & .card-add-product {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    //justify-content: space-between;
+
+    &-btns {
+      padding: .5rem 0;
+      display: inline-flex;
+      justify-content: space-evenly;
+      //border-bottom: 1px solid rgba(0, 0, 0, .2);
+    }
 
     &-clicked-input {
       max-width: 50%;

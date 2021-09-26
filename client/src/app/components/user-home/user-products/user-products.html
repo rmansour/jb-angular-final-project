@@ -26,31 +26,27 @@
       </div>
     </div>
 
-    <div class="home__user--main-cart border-start border-2 p-3">
-      <header class="home__user--main-cart--header">
-        <h3>Your cart:</h3>
-      </header>
+    <div class="home__user--main-cart border-start border-2">
+      <div class="home__user--main-cart--header-items-wrapper">
+        <header class="home__user--main-cart--header-items-wrapper--header">
+          <h3>Your cart:</h3>
+        </header>
 
-      <div *ngFor="let singleShoppingCartItem of
-      shoppingCartItemsService.allOrdersByUser" class="row mt-3 home__user--main-cart--single-product">
-
-        <div class="col-2 home__user--main-cart--single-product-image">
-          <img alt="{{singleShoppingCartItem.product.product_img_src}}" class="card-img-top" src="">
+        <div class="home__user--main-cart--header-items-wrapper--items">
+          <app-user-cart-single-product *ngFor="let singleShoppingCartItem of
+      shoppingCartItemsService.allShoppingCartItems" [singleShoppingCartItem]="singleShoppingCartItem"
+                                        class="row mt-3 home__user--main-cart--single-product">
+          </app-user-cart-single-product>
         </div>
-        <div
-          class="col-6 home__user--main-cart--single-product-name ">{{singleShoppingCartItem.product.product_name}}</div>
-        <div class="col-4 home__user--main-cart--single-product-qnt d-inline-flex">
-          <button class="btn">
-            <i class="bi bi-dash-circle-fill"></i>
-          </button>
-          <p>{{singleShoppingCartItem.qnt}}</p>
-          <button class="btn">
-            <i class="bi bi-plus-circle-fill"></i>
-          </button>
-          <button class="btn btn-danger">
-            <i class="bi bi-trash-fill "></i>
-          </button>
-        </div>
+      </div>
+      <div class="home__user--main-cart--checkoutDV">
+        <p>Total:
+          <b>{{shoppingCartItemsService.totalPrice}}₪</b>
+        </p>
+        <button class="btn btn-secondary" [disabled]="shoppingCartItemsService.allShoppingCartItems.length
+        === 0"
+                (click)="continueToOrderPage()">Proceed to checkout
+        </button>
       </div>
     </div>
   </div>

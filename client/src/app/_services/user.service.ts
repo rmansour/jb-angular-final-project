@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {User} from "../models/models";
-import {ApiService} from "./api.service";
+import {User} from '../models/models';
+import {ApiService} from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class UserService {
 
   users: Array<User> = [];
   usersByType: Array<User> = [];
+  userInfo: any = {};
 
   constructor(private apiService: ApiService) {
   }
@@ -16,7 +17,7 @@ export class UserService {
   async getAllUsers() {
     this.users = await this.apiService.createGetService('/users/getAllUsers') as Array<User>;
     console.log(this.users);
-    this.usersByType = this.users
+    this.usersByType = this.users;
   }
 
   filterUsersByType(isAdmin: any) {
@@ -36,6 +37,12 @@ export class UserService {
   async deleteUserById(userId: number) {
     await this.apiService.createPostService('/users/deleteUser', {id: userId});
     await this.getAllUsers();
+  }
+
+  async getUserInfo(id: number) {
+    this.userInfo = await this.apiService.createPostService('/users/getUserById', {id: id});
+    this.userInfo.creditCardNumber = '';
+    console.log(this.userInfo);
   }
 }
 

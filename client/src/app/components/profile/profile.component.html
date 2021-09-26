@@ -1,25 +1,27 @@
 <app-global-user-nav></app-global-user-nav>
-<div class="container" *ngIf="currentUser; else loggedOut">
+<div class="container mt-4" *ngIf="userService.userInfo; else loggedOut">
   <header class="jumbotron">
     <h3>
-      <strong>{{ currentUser.username }}</strong> Profile
+      <strong>{{ userService.userInfo.firstName }}'s</strong> Profile
     </h3>
   </header>
   <p>
-    <strong>Token:</strong>
-    {{ currentUser.accessToken.substring(0, 20) }} ...
-    {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
+    <strong>ID Number:</strong>
+    {{userService.userInfo.IDnum}}
   </p>
   <p>
     <strong>Email:</strong>
-    {{ currentUser.email }}
+    {{ userService.userInfo.email }}
   </p>
-  <strong>Roles:</strong>
-  <ul>
-    <li>
-      {{ currentUser.roles === 1 ? "Admin" : "Costumer" }}
-    </li>
-  </ul>
+  <p>
+    <strong>Address:</strong>
+    {{ userService.userInfo.street }}
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    {{userService.userInfo.city}}
+  </p>
 </div>
 
 <ng-template #loggedOut>

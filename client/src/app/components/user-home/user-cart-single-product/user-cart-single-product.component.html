@@ -1,0 +1,24 @@
+<div class="row mt-3 home__user--main-cart--single-product">
+  <div class="col-2 home__user--main-cart--single-product-image">
+    <img alt="{{singleShoppingCartItem.product?.product_img_src}}" class="card-img-top" src="">
+  </div>
+  <div class="col-3 home__user--main-cart--single-product-name ">
+    {{singleShoppingCartItem.product?.product_name}}
+  </div>
+  <div class="home__user--main-cart--single-product-price col-2">
+    Price: {{singleShoppingCartItem.product!.price}}₪
+  </div>
+  <div class="col-4 home__user--main-cart--single-product-qnt">
+    <button (click)="addOrSubtractQnt(2)" [disabled]="itemToSubmit.qnt <= 1"
+            class="btn">
+      <i class="bi bi-dash-circle-fill"></i>
+    </button>
+    <input [(ngModel)]="itemToSubmit.qnt"/>
+    <button (click)="addOrSubtractQnt(1)" class="btn">
+      <i class="bi bi-plus-circle-fill"></i>
+    </button>
+    <button class="btn btn-danger" (click)="deleteShoppingCartItem()">
+      <i class="bi bi-trash-fill"></i>
+    </button>
+  </div>
+</div>

@@ -24,7 +24,7 @@
         <td>{{order.shippingAddress}}</td>
         <td>{{order.orderDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{order.shippingDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>****{{order.lastFourDigitsOfPaymentMethod}}</td>
+        <td>****{{order.creditCardNumber}}</td>
         <td>{{order.totalPrice}}₪</td>
       </tr>
       </tbody>

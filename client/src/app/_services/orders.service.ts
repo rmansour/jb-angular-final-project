@@ -15,7 +15,7 @@ export class OrdersService {
 
   async getAllOrders() {
     this.totalNumOfOrders = await this.api.createGetService('/orders/totalNumOfOrders');
-    console.log(this.totalNumOfOrders[0].totalOrders);
+    // console.log(this.totalNumOfOrders[0].totalOrders);
   }
 
   async getAllOrdersByUser(userId: number) {
