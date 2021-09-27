@@ -8,7 +8,6 @@
     <table class="table table-bordered table-responsive table-hover">
       <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Shipping City</th>
         <th scope="col">Shipping Address</th>
         <th scope="col">Order Date</th>
@@ -19,12 +18,11 @@
       </thead>
       <tbody>
       <tr *ngFor="let order of ordersService.allOrdersByUser">
-        <th scope="row">{{order.id}}</th>
         <td>{{order.shippingCity}}</td>
         <td>{{order.shippingAddress}}</td>
         <td>{{order.orderDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{order.shippingDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>****{{order.creditCardNumber}}</td>
+        <td>********{{order.creditCardNumber}}</td>
         <td>{{order.totalPrice}}₪</td>
       </tr>
       </tbody>

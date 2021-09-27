@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {ApiService} from "./api.service";
-import {Product} from "../models/models";
+import {ApiService} from './api.service';
+import {Product} from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ProductsService {
   }
 
   getProductsByCategoryId(id: number) {
-    console.log(id);
+    //console.log(id);
     let tmpArr = [...this.allProducts];
 
     if (isNaN(id)) {
@@ -32,12 +32,12 @@ export class ProductsService {
     } else
       this.productsByCategoryId = tmpArr;
 
-    console.log(this.productsByCategoryId);
+    //console.log(this.productsByCategoryId);
   }
 
   async getAllProducts() {
     this.allProducts = await this.api.createGetService('/products/getProducts') as Array<Product>;
     this.productsByCategoryId = [...this.allProducts];
-    console.log(this.allProducts);
+    //console.log(this.allProducts);
   }
 }

@@ -10,7 +10,7 @@ import {RegisterComponent} from './components/register/register.component';
 import {UserHome} from './components/user-home/user-home';
 import {AdminBoardComponent} from './components/admin-board/admin-board.component';
 import {ProfileComponent} from './components/profile/profile.component';
-import {UserBoardComponent} from './components/user-home/user-board/user-board.component';
+import {UserOrdersListComponent} from './components/user-home/user-orders-list/user-orders-list.component';
 
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
 import {GlobalUserNavComponent} from './components/global-user-nav/global-user-nav.component';
@@ -21,7 +21,7 @@ import {AddProductModelComponent} from './components/admin-board/products/add-pr
 import {EditProductModelComponent} from './components/admin-board/products/edit-product-model/edit-product-model.component';
 import {HomeUserComponent} from './components/user-home/user-products/user-products';
 import {UserCartSingleProductComponent} from './components/user-home/user-cart-single-product/user-cart-single-product.component';
-import { UserOrdersComponent } from './components/user-home/user-orders/user-orders.component';
+import {UserOrdersComponent} from './components/user-home/user-orders/user-orders.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { UserOrdersComponent } from './components/user-home/user-orders/user-ord
     UserHome,
     AdminBoardComponent,
     ProfileComponent,
-    UserBoardComponent,
+    UserOrdersListComponent,
     GlobalUserNavComponent,
     ProductCardComponent,
     ProductsComponent,

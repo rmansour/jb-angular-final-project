@@ -1,4 +1,5 @@
 const db = require('../models');
+const sequelize = require('sequelize');
 const ShoppingCartItems = db.shoppingCartItem;
 const Products = db.products;
 
@@ -58,5 +59,23 @@ exports.upsertShoppingCartItem = async (req, res) => {
         });
       }
     });
+  }
+};
+
+exports.calculateShoppingCartTotalPrice = async (req, res) => {
+  console.log(req.body);
+
+  try {
+    let stmt = await db.sequelize.query(`
+    select sum(s.qnt * p.price) as totalProductPrice
+        from shopping_cart_items s
+        inner join products p on s.productId = p.id
+    where s.userId = ${req.body.userId};
+    `);
+
+    res.status(200).send(stmt[0]);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({message: `Couldn't retrieve shopping cart items total price.`});
   }
 };

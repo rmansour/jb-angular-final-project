@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ShoppingCartItem} from '../models/models';
 import {ApiService} from './api.service';
-import {UserAdminServiceService} from './user-admin-service.service';
 import {TokenStorageService} from './token-storage.service';
 
 @Injectable({
@@ -9,33 +8,26 @@ import {TokenStorageService} from './token-storage.service';
 })
 export class ShoppingCartItemsService {
   allShoppingCartItems: Array<ShoppingCartItem> = [];
-  totalPrice: number = 0;
+  totalPrice?: any = 0;
 
   constructor(private tokenStorageService: TokenStorageService, private apiService: ApiService) {
   }
 
   async getShoppingCartItemsByUserId() {
     let tmpUser = this.tokenStorageService.getUser();
-    console.log(tmpUser);
     if (tmpUser) {
       this.allShoppingCartItems = await this.apiService.createGetService('/shoppingCart/getShoppingCartItemsByUserID?userId=' + tmpUser.id) as Array<ShoppingCartItem>;
-      console.log(this.allShoppingCartItems);
     }
   }
 
-  setTotalCartItemsPrice() {
-    this.totalPrice = 0;
-
-    if (!this.allShoppingCartItems) {
+  async getTotalCartItemsPrice() {
+    if (!this.totalPrice)
       this.totalPrice = 0;
-      return;
-    }
 
-    for (let i = 0; i < this.allShoppingCartItems.length; i++) {
-      if (this.allShoppingCartItems[i].qnt > 1) {
-        this.totalPrice += this.allShoppingCartItems[i].product!.price * this.allShoppingCartItems[i].qnt;
-      } else
-        this.totalPrice += this.allShoppingCartItems[i].product!.price;
+    let tmpUser = this.tokenStorageService.getUser();
+    if (tmpUser) {
+      this.totalPrice = await this.apiService.createPostService('/shoppingCart/calculateShoppingCartTotalPrice', {userId: tmpUser.id});
+      console.log(this.totalPrice[0].totalProductPrice);
     }
   }
 }

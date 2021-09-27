@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
     console.log(tmpUser);
     await this.userService.getUserInfo(tmpUser.id);
     console.log(this.userService.userInfo);
+
   }
 
 }

@@ -2,29 +2,28 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
-const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer, {
-    cors: {
-        origin: "*"
-    }
+const httpServer = require('http').createServer(app);
+const io = require('socket.io')(httpServer, {
+  cors: {
+    origin: '*'
+  }
 });
 
 module.exports = io;
 
 io.on('connection', (socket) => {
-    console.log('user connected');
-    // console.log(socket.id);
+  console.log('user connected');
+  // console.log(socket.id);
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected', socket.id);
-    });
-})
+  socket.on('disconnect', () => {
+    console.log('user disconnected', socket.id);
+  });
+});
 
 const db = require('./app/models');
-const Role = db.roles;
 
 var corsOptions = {
-    origin: '*'
+  origin: '*'
 };
 
 
@@ -37,29 +36,62 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // simple route
-app.get("/", (req, res) => {
-    res.json({message: "Welcome to Raed's application."});
+app.get('/', (req, res) => {
+  res.json({message: 'Welcome to Raed\'s application.'});
 });
 
 
-function initial() {
-    Role.create({
-        id: 1,
-        name: "customer"
-    });
+async function checkIfRoutinesExist(schemaName, routineType, routineName) {
+  let bool = false;
 
-    Role.create({
-        id: 2,
-        name: "admin"
-    });
+  let stmt = `SELECT IF(COUNT(*) = 0, 'F', 'T') AS ProcedureExists
+  FROM INFORMATION_SCHEMA.ROUTINES
+  WHERE ROUTINE_SCHEMA = '${schemaName}'
+  AND ROUTINE_TYPE = '${routineType}'
+  AND UCASE(ROUTINE_NAME) = UCASE('${routineName}');`;
 
+  await db.sequelize.query(stmt).then((result) => {
+    bool = result[0][0].ProcedureExists === 'T';
+  });
+  return bool;
 }
 
 // {force:true}
 // {alter: true}
 db.sequelize.sync().then(() => {
-    // console.log('Drop and Resync Db');
-    // initial();
+  let bool = checkIfRoutinesExist('jb_angular_final_project', 'PROCEDURE', 'sp_moveCartToOrderItems');
+  if (!bool) {
+    console.log('creating procedure');
+    let stmt = `
+    CREATE PROCEDURE sp_moveCartToOrderItems(pOrderId int, pUserId int)
+    BEGIN
+    DECLARE \`_rollback\` BOOL DEFAULT 0;
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET \`_rollback\` = 1;
+    START TRANSACTION;
+    insert into order_items (orderId, productId, price, qnt, createdAt, updatedAt)
+    select pOrderId as orderId, c.productId, price, qnt, now(), now()
+    from shopping_cart_items c
+             inner join products p on c.productId = p.id
+    where userId = pUserId;
+
+    IF \`_rollback\` THEN
+        ROLLBACK;
+    ELSE
+        Begin
+            delete
+            from shopping_cart_items
+            where userId = pUserId;
+            IF \`_rollback\` THEN
+                ROLLBACK;
+            ELSE
+                COMMIT;
+            END IF;
+        END;
+    END IF;
+END;
+`;
+    db.sequelize.query(stmt);
+  }
 });
 
 // routes
@@ -74,5 +106,5 @@ require('./app/routes/shoppingCartItem')(app);
 const PORT = process.env.PORT || 8080;
 
 httpServer.listen(8080, () => {
-    console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on port ${PORT}.`);
 });

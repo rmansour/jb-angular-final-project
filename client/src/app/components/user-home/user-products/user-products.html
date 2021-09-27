@@ -41,7 +41,7 @@
       </div>
       <div class="home__user--main-cart--checkoutDV">
         <p>Total:
-          <b>{{shoppingCartItemsService.totalPrice}}₪</b>
+          <b>{{shoppingCartItemsService.totalPrice[0]?.totalProductPrice}}₪</b>
         </p>
         <button class="btn btn-secondary" [disabled]="shoppingCartItemsService.allShoppingCartItems.length
         === 0"

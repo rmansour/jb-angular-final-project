@@ -12,6 +12,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     orderDate: {
       type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW,
       allowNull: false,
     },
     shippingDate: {
@@ -19,7 +20,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false
     },
     totalPrice: {
-      type: Sequelize.FLOAT,
+      type: Sequelize.DECIMAL(10,2),
       allowNull: false
     },
     shippingCity: {

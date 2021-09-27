@@ -19,10 +19,11 @@ export class HomeUserComponent implements OnInit {
     await this.categoriesService.getCategories();
     await this.productsService.getAllProducts();
     await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
-    this.shoppingCartItemsService.setTotalCartItemsPrice();
+    //this.shoppingCartItemsService.setTotalCartItemsPrice();
   }
 
   async continueToOrderPage() {
     await this.router.navigate(['/order-page']);
   }
+
 }

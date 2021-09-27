@@ -4,7 +4,7 @@ import {UserHome} from './components/user-home/user-home';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {ProfileComponent} from './components/profile/profile.component';
-import {UserBoardComponent} from './components/user-home/user-board/user-board.component';
+import {UserOrdersListComponent} from './components/user-home/user-orders-list/user-orders-list.component';
 import {AdminBoardComponent} from './components/admin-board/admin-board.component';
 import {AdminUsersComponent} from './components/admin-board/admin-users/admin-users.component';
 import {ProductsComponent} from './components/admin-board/products/products.component';
@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'products', component: ProductsComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'user', component: UserBoardComponent},
+  {path: 'user-order-list', component: UserOrdersListComponent},
   {path: 'admin', component: AdminBoardComponent},
   {path: 'order-page', component: UserOrdersComponent}
 ];

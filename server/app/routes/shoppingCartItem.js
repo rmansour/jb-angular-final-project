@@ -7,6 +7,7 @@ module.exports = function (app) {
   });
 
   app.get('/shoppingCart/getShoppingCartItemsByUserID', shoppingCartItemController.getShoppingItemsByUserID);
+  app.post('/shoppingCart/calculateShoppingCartTotalPrice', shoppingCartItemController.calculateShoppingCartTotalPrice);
   app.post('/shoppingCart/upsertShoppingCartItem', shoppingCartItemController.upsertShoppingCartItem);
   app.post('/shoppingCart/deleteShoppingCartItems', shoppingCartItemController.deleteShoppingCartItems);
 }

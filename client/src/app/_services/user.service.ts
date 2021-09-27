@@ -16,7 +16,6 @@ export class UserService {
 
   async getAllUsers() {
     this.users = await this.apiService.createGetService('/users/getAllUsers') as Array<User>;
-    console.log(this.users);
     this.usersByType = this.users;
   }
 
@@ -42,6 +41,7 @@ export class UserService {
   async getUserInfo(id: number) {
     this.userInfo = await this.apiService.createPostService('/users/getUserById', {id: id});
     this.userInfo.creditCardNumber = '';
+    this.userInfo.shippingDate = '';
     console.log(this.userInfo);
   }
 }

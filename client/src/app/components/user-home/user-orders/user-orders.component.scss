@@ -1,6 +1,6 @@
 .card {
   background-color: #f7f7f7;
-  padding: 15px 25px 30px;
+  padding: 25px 25px 30px;
   //margin: 30px auto 25px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -11,19 +11,23 @@
 }
 
 .orders__page {
-  margin: 30px auto auto;
+  margin: 80px auto auto;
   //width: 100%;
-  height: calc(100vh - 10vh);
+  height: calc(100vh - 20vh);
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
 
-  &--shopping-cart-review {
+  & .card {
+    height: 80%;
+    overflow-y: auto;
+    justify-content: space-between;
 
-    & .card {
-      height: 80%;
-      overflow-y: auto;
-      margin-right: auto;
+    .orders__page--shopping-cart-review--header-body {
+    }
+
+    .orders__page--shopping-cart-review--total {
+      align-self: flex-end;
     }
   }
 

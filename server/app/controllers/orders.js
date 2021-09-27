@@ -6,6 +6,11 @@ exports.getOrdersByUser = async (req, res) => {
 
   try {
     await Orders.findAll({where: {userId: req.query.userId}}).then(orders => {
+      for (let i = 0; i < orders.length; i++) {
+        // console.log(orders[i].dataValues);
+        orders[i].dataValues.creditCardNumber = orders[i].dataValues.creditCardNumber.substr(12,4);
+      }
+      console.log(orders);
       res.status(200).send(orders)
     })
   } catch (e) {
@@ -28,9 +33,19 @@ exports.totalNumOfOrders = async (req, res) => {
 };
 
 exports.addOrder = async (req, res) => {
-  console.log(req.body);
   try {
-    await Orders.create(req.body, {multi: true}).then(shoppingItem => {
+    //   `id`,`userId`,`orderDate`,`shippingDate`,`totalPrice`,`shippingCity`,`shippingAddress`,`creditCardNumber`,`createdAt`,`updatedAt`
+    let insertObj = {
+      userId: req.body.userId,
+      // orderDate: '',
+      shippingDate: req.body.shippingDate,
+      totalPrice: req.body.totalPrice,
+      shippingCity: req.body.shippingCity,
+      shippingAddress: req.body.shippingAddress,
+      creditCardNumber: req.body.creditCardNumber
+    }
+    console.log('insertObj', insertObj);
+    await Orders.create(insertObj).then(shoppingItem => {
       res.status(200).send(shoppingItem);
     })
   } catch (e) {

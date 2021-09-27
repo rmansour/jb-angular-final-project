@@ -37,13 +37,14 @@ export class UserCartSingleProductComponent implements OnInit {
     }
 
     await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
-    this.shoppingCartItemsService.setTotalCartItemsPrice();
+    await this.shoppingCartItemsService.getTotalCartItemsPrice();
     console.log(this.itemToSubmit);
   }
 
   async deleteShoppingCartItem() {
     await this.apiService.createPostService('/shoppingCart/deleteShoppingCartItems', {id: this.itemToSubmit.id});
     await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
-    this.shoppingCartItemsService.setTotalCartItemsPrice();
+    await this.shoppingCartItemsService.getTotalCartItemsPrice();
+    //this.shoppingCartItemsService.setTotalCartItemsPrice();
   }
 }

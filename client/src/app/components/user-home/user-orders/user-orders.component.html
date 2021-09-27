@@ -1,16 +1,25 @@
 <app-global-user-nav></app-global-user-nav>
-<div class="row container orders__page row">
 
+<div class="row container orders__page row">
   <div class="orders__page--shopping-cart-review col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-6">
     <div class="card">
-      <header>
-        <h2>Your cart:</h2>
-      </header>
-      <app-user-cart-single-product
-        *ngFor="let shoppingCartItem of shoppingCartItemsService.allShoppingCartItems"
-        [singleShoppingCartItem]="shoppingCartItem"></app-user-cart-single-product>
+      <div class="orders__page--shopping-cart-review--header-body">
+        <header>
+          <h2>Your cart:</h2>
+        </header>
+        <app-user-cart-single-product
+          *ngFor="let shoppingCartItem of shoppingCartItemsService.allShoppingCartItems"
+          [singleShoppingCartItem]="shoppingCartItem"></app-user-cart-single-product>
+      </div>
+
+      <div class="orders__page--shopping-cart-review--total">
+        <p>Total:
+          <b>{{shoppingCartItemsService.totalPrice[0]?.totalProductPrice}}₪</b>
+        </p>
+      </div>
     </div>
   </div>
+
   <div class="orders__page--form--details card col-xs-12 col-sm-12 col-lg-8 col-md-12 col-xl-6">
     <div class="card-body">
       <header class="orders__page--form--details--header">
@@ -34,7 +43,6 @@
           </div>
         </div>
 
-
         <div class="form-group">
           <label for="shippingCity">Shipping City:</label>
           <input [(ngModel)]="userService.userInfo.city" [ngClass]="{'is-invalid': submitted && f.shippingCity.errors}"
@@ -48,7 +56,6 @@
             <div *ngIf="f.shippingCity.errors.minlength">Shipping city can't be less than 3 characters!</div>
             <div *ngIf="f.shippingCity.errors.required">Shipping city is required!</div>
           </div>
-
         </div>
 
         <div class="form-group">
@@ -62,13 +69,30 @@
                  type="text"
                  value="{{userService.userInfo.creditCardNumber}}"/>
           <div *ngIf="submitted && f.creditCardNumber.errors" class="invalid-feedback">
-            <div *ngIf="f.creditCardNumber.errors.minlength">Credit card number can't be less than 8 numbers!</div>
+            <div *ngIf="f.creditCardNumber.errors.minlength">Credit card number can't be less than 8 digits!</div>
+            <div *ngIf="f.creditCardNumber.errors.maxlength">Credit card number can't be than 16 digits!</div>
             <div *ngIf="f.creditCardNumber.errors.required">Credit card number is required!</div>
-            <div *ngIf="f.creditCardNumber.errors.pattern">Credit card number can only contain numbers!</div>
+            <div *ngIf="f.creditCardNumber.errors.pattern">Credit card number can only contain digits!</div>
           </div>
         </div>
 
-        <button (click)="onSubmit()" class="btn btn-secondary form-submit-btn" type="submit">Submit Order</button>
+        <div class="form-group">
+          <label for="shippingDate">Credit Card Number:</label>
+          <input [(ngModel)]="userService.userInfo.shippingDate"
+                 [ngClass]="{'is-invalid': submitted && f.shippingDate.errors}"
+                 class="form-control"
+                 formControlName="shippingDate"
+                 id="shippingDate"
+                 name="shippingDate"
+                 type="date"
+                 value="{{userService.userInfo.shippingDate}}"/>
+          <div *ngIf="submitted && f.shippingDate.errors" class="invalid-feedback">
+            <div *ngIf="f.shippingDate.errors.required">Shipping date is required!</div>
+          </div>
+        </div>
+
+        <button class="btn btn-secondary form-submit-btn" type="submit">Submit Order</button>
+
       </form>
     </div>
   </div>
