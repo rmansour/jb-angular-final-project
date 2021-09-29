@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Product} from "../../../../models/models";
 import {CategoriesService} from "../../../../_services/categories.service";
+import {ProductsService} from "../../../../_services/products.service";
 
 @Component({
   selector: 'app-add-product-model',
@@ -8,19 +9,21 @@ import {CategoriesService} from "../../../../_services/categories.service";
   styleUrls: ['./add-product-model.component.scss']
 })
 export class AddProductModelComponent implements OnInit {
-  @Input() singleProduct: Product = new Product(0, '', 0, 0, '');
+  @Input() singleProduct: Product = new Product(0, '', 0, 'image/jpeg', '', 0);
 
 
-  constructor(public categoriesService: CategoriesService) {
+  constructor(public categoriesService: CategoriesService, private productsService: ProductsService) {
   }
 
   ngOnInit(): void {
     this.categoriesService.getCategories();
   }
 
-  submitNewProduct() {
+  async submitNewProduct() {
     console.log(this.singleProduct);
-    this.singleProduct = new Product(0, '', 0, 0, '');
+    await this.productsService.addNewProduct(this.singleProduct);
+    this.singleProduct = new Product(0, '', 0, 'image/jpeg', '', 0);
+    await this.productsService.getAllProducts();
   }
 
   handleSelectedCategory($event: any) {

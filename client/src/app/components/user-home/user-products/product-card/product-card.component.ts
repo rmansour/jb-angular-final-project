@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
 
-  itemToSubmit: ShoppingCartItem = new ShoppingCartItem(0, this.userAdminServiceService.user.id, 0, 1, new Product(0, '', 0, 0, ''));
+  itemToSubmit: ShoppingCartItem = new ShoppingCartItem(0, this.userAdminServiceService.user.id, 0, 1, new Product(0, '', 0, 'image/jpeg', 'uploads/', 0));
 
   constructor(public shoppingCartItemsService: ShoppingCartItemsService, private userAdminServiceService: UserAdminServiceService, private apiService: ApiService) {
   }
@@ -50,9 +50,8 @@ export class ProductCardComponent implements OnInit {
     delete this.itemToSubmit.product;
 
     await this.apiService.createPostService('/shoppingCart/upsertShoppingCartItem', this.itemToSubmit);
-    //await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
-    //await this.shoppingCartItemsService.getTotalCartItemsPrice();
-    //this.shoppingCartItemsService.setTotalCartItemsPrice();
+    await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
+    await this.shoppingCartItemsService.getTotalCartItemsPrice();
   }
 
 }

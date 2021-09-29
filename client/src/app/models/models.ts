@@ -11,16 +11,19 @@ export class Category {
 export class Product {
   id: number;
   product_name: string;
-  category_id: number;
   price: number;
-  product_img_src: string;
+  type: string;
+  filename: string;
+  category_id: number;
 
-  constructor(id: number, product_name: string, category_id: number, price: number, product_img_src: string) {
+
+  constructor(id: number, product_name: string, price: number, type: string, filename: string, category_id: number) {
     this.id = id;
     this.product_name = product_name;
-    this.category_id = category_id;
     this.price = price;
-    this.product_img_src = product_img_src;
+    this.type = type;
+    this.filename = filename;
+    this.category_id = category_id;
   }
 }
 

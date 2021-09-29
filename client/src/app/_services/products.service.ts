@@ -40,4 +40,9 @@ export class ProductsService {
     this.productsByCategoryId = [...this.allProducts];
     //console.log(this.allProducts);
   }
+
+  async addNewProduct(product: Product) {
+    console.log(product);
+    await this.api.createPostService('/products/addProduct', product);
+  }
 }

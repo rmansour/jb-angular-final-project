@@ -5,7 +5,7 @@
   height: 100%;
 
   &--header {
-    background-color: #5d5d5d;
+    background-color: #ccc !important;
     width: 100%;
 
     .home__user--header-wrapper {
@@ -29,7 +29,7 @@
         &--dropbtn {
           background-color: #50bd4d;
           color: white;
-          padding: 1.6rem 3rem;
+          padding: 1.4rem 2.2rem;
           font-size: 1rem;
           border: none;
           cursor: pointer;

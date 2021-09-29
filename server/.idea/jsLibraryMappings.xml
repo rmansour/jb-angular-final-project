@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{@types/css, @types/react, @types/react-redux, @types/sequelize, all, bootstrap, bootstrap.bundle, font-awesome, jquery-3.4.1, socket.io, socket.io-3.0.1}" />
+    <file url="PROJECT" libraries="{@types/angular, @types/bootstrap, @types/sequelize}" />
     <includedPredefinedLibrary name="HTTP Response Handler" />
     <includedPredefinedLibrary name="Node.js Core" />
   </component>

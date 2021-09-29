@@ -10,7 +10,7 @@ import {ApiService} from "../../../_services/api.service";
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  singleProductEdit: Product = new Product(0, '', 0, 0, '');
+  singleProductEdit: Product = new Product(0, '', 0, 'image/jpeg', 'uploads/', 0);
 
   constructor(public productsService: ProductsService, public categoriesService: CategoriesService, private apiService: ApiService) {
   }

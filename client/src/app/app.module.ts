@@ -22,6 +22,7 @@ import {EditProductModelComponent} from './components/admin-board/products/edit-
 import {HomeUserComponent} from './components/user-home/user-products/user-products';
 import {UserCartSingleProductComponent} from './components/user-home/user-cart-single-product/user-cart-single-product.component';
 import {UserOrdersComponent} from './components/user-home/user-orders/user-orders.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {UserOrdersComponent} from './components/user-home/user-orders/user-order
     HomeUserComponent,
     UserCartSingleProductComponent,
     UserOrdersComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,

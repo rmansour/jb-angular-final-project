@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrdersService} from '../../../_services/orders.service';
+import {TokenStorageService} from '../../../_services/token-storage.service';
 
 @Component({
   selector: 'app-user-board',
@@ -9,10 +10,10 @@ import {OrdersService} from '../../../_services/orders.service';
 export class UserOrdersListComponent implements OnInit {
   content?: string;
 
-  constructor(public ordersService: OrdersService) {
+  constructor(public ordersService: OrdersService, private tokenStorageService: TokenStorageService) {
   }
 
   async ngOnInit() {
-    //await this.ordersService.getAllOrdersByUser(this.userAdminServiceService.user.id);
+    //await this.ordersService.getAllOrdersByUser(this.tokenStorageService.getUser().id);
   }
 }

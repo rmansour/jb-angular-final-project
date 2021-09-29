@@ -30,20 +30,20 @@ exports.getProductsByCategoryId = async (req, res) => {
 exports.addProduct = async (req, res) => {
   console.log(req.body);
 
-  await Products.create(req.body).then(() => {
-    res.status(200).send("Product added successfully!");
+  await Products.create(req.body).then(result => {
+    res.status(200).send(result);
   }).catch(err => {
     console.log(err);
-    res.status(500).send("Insert: couldn't create product!");
-  })
+    res.status(500).send(err, {message: "Insert: couldn't create product!"});
+  });
 };
 
 exports.editProduct = async (req, res) => {
   console.log(req.body);
   try {
-    await Products.update(req.body, {where: {id: req.body.id}},{multi: true}).then(response => {
+    await Products.update(req.body, {where: {id: req.body.id}}, {multi: true}).then(response => {
       res.status(200).send(JSON.stringify(response));
-    })
+    });
   } catch (e) {
     console.log(e);
     res.status(500).send(JSON.stringify(e));
@@ -61,4 +61,23 @@ exports.deleteProduct = async (req, res) => {
     console.log(e);
     res.status(500).send(JSON.stringify(e));
   }
+};
+
+exports.uploadImage = (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+  let obj = {
+    type: req.file.mimetype,
+    filename: req.file.filename
+  };
+  let options = {multi: true};
+  let whereCondition = {where: {id: req.body.id}};
+
+  Products.update(obj, whereCondition, options).then(result => {
+    res.status(200).send(result);
+  })
+    .catch(e => {
+      console.log(e);
+      res.status(500).send(e, {message: `Couldn't update image`});
+    });
 };

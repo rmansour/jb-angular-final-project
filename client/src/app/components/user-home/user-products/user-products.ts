@@ -19,7 +19,7 @@ export class HomeUserComponent implements OnInit {
     await this.categoriesService.getCategories();
     await this.productsService.getAllProducts();
     await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
-    //this.shoppingCartItemsService.setTotalCartItemsPrice();
+    await this.shoppingCartItemsService.getTotalCartItemsPrice();
   }
 
   async continueToOrderPage() {

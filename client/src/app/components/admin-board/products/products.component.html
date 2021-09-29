@@ -34,7 +34,8 @@
           <th scope="row">{{product.id}}</th>
           <td>{{product.product_name}}</td>
           <td>{{product.price}}₪</td>
-          <td>{{product.product_img_src}}</td>
+          <td>
+            <img src="{{'resources/uploads/' + product.filename}}" alt=""></td>
           <td class="edit-btn">
             <i class="fas fa-edit" (click)="handleProductEdit(product)" data-bs-toggle="modal"
                data-bs-target="#editProductModal"></i>
@@ -53,4 +54,7 @@
 
   <app-add-product-model></app-add-product-model>
   <app-edit-product-model [singleProductEdit]="singleProductEdit"></app-edit-product-model>
+  <app-file-upload></app-file-upload>
 </div>
+
+

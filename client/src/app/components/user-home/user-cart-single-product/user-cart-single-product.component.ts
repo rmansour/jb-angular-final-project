@@ -12,7 +12,7 @@ import {ApiService} from '../../../_services/api.service';
 export class UserCartSingleProductComponent implements OnInit {
 
   @Input() singleShoppingCartItem!: ShoppingCartItem;
-  itemToSubmit: ShoppingCartItem = new ShoppingCartItem(0, this.userAdminServiceService.user.id, 0, 1, new Product(0, '', 0, 0, ''));
+  itemToSubmit: ShoppingCartItem = new ShoppingCartItem(0, this.userAdminServiceService.user.id, 0, 1, new Product(0, '', 0, 'image/jpeg', 'uploads/', 0));
 
   constructor(public shoppingCartItemsService: ShoppingCartItemsService, private userAdminServiceService: UserAdminServiceService, private apiService: ApiService) {
   }
@@ -38,13 +38,11 @@ export class UserCartSingleProductComponent implements OnInit {
 
     await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
     await this.shoppingCartItemsService.getTotalCartItemsPrice();
-    console.log(this.itemToSubmit);
   }
 
   async deleteShoppingCartItem() {
     await this.apiService.createPostService('/shoppingCart/deleteShoppingCartItems', {id: this.itemToSubmit.id});
     await this.shoppingCartItemsService.getShoppingCartItemsByUserId();
     await this.shoppingCartItemsService.getTotalCartItemsPrice();
-    //this.shoppingCartItemsService.setTotalCartItemsPrice();
   }
 }

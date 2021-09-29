@@ -27,6 +27,7 @@ export class UserOrdersComponent implements OnInit {
     this.shoppingCartItemsService.getShoppingCartItemsByUserId();
     this.userService.getUserInfo(this.tokenStorage.getUser().id);
     this.shoppingCartItemsService.getTotalCartItemsPrice();
+    
 
     this.form = this.formBuilder.group({
       shippingAddress: [

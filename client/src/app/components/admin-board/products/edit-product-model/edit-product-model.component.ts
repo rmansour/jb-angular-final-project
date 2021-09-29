@@ -9,13 +9,15 @@ import {SweatService} from "../../../../_services/sweat";
   styleUrls: ['./edit-product-model.component.scss']
 })
 export class EditProductModelComponent implements OnInit {
-  @Input() singleProductEdit: Product = new Product(0, '', 0, 0, '');
+  @Input() singleProductEdit: Product = new Product(0, '', 0, 'image/jpeg', '', 0);
 
   constructor(private apiService: ApiService, private sweatService: SweatService) {
   }
 
   ngOnInit(): void {
+    this.singleProductEdit.filename = '';
     console.log('ngOnInit', this.singleProductEdit);
+
   }
 
   async submitProductChanges() {

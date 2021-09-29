@@ -20,12 +20,16 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false
     },
     price: {
-      type: Sequelize.DECIMAL(10,2),
+      type: Sequelize.DECIMAL(10, 2),
       allowNull: false
     },
-    product_img_src: {
+    type: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: false
+    },
+    filename: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   });
 
