@@ -1,3 +1,11 @@
 .add-product-modal__select-category {
   margin-bottom: 1rem;
 }
+
+.form-group {
+  margin-bottom: 1rem;
+
+  & label {
+    margin-bottom: 5px;
+  }
+}

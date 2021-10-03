@@ -5,8 +5,8 @@
   align-content: center;
 
   & .navbar-title {
-    line-height: 1.85;
-    padding: 0;
+    //line-height: 1.85;
+    padding-top: 0;
   }
 
   & .first-nav-group {
@@ -26,4 +26,16 @@
 
 .separate-sections {
   justify-content: space-between;
+}
+
+.profile {
+  margin-right: 1.1rem;
+}
+
+.profile,
+.logout {
+  display: flex;
+  width: max-content;
+  justify-content: center;
+  align-items: center;
 }

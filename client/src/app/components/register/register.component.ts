@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../_services/auth.service';
-import {Router} from "@angular/router";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import Validation from "../../utils/validation";
+import {Router} from '@angular/router';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import Validation from '../../utils/validation';
 
 @Component({
   selector: 'app-register',
@@ -130,7 +130,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    console.log(JSON.stringify({first: this.firstStepForm.value, second: this.secondStepForm.value}, null, 2));
+    //console.log(JSON.stringify({first: this.firstStepForm.value, second: this.secondStepForm.value}, null, 2));
   }
 
   next() {
@@ -176,6 +176,6 @@ export class RegisterComponent implements OnInit {
       this.firstStep = false;
 
     if (this.steps == 2)
-      this.secondStep = false
+      this.secondStep = false;
   }
 }

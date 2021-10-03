@@ -1,2 +1,87 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+
+* {
+
+  /* Works on Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #d0d0d0 white;
+  }
+
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0;
+    border-radius: 20px;
+    //border: 3px solid #ececec;
+  }
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap');
+
+.hide {
+  display: none;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.row {
+  margin: 0;
+}
+
+body {
+  margin: 0 auto;
+  font-family: 'JetBrains Mono', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  min-height: 100vh;
+}
+
+
+.btn-check:active + .btn-outline-info, .btn-check:checked + .btn-outline-info, .btn-outline-info.active, .btn-outline-info.dropdown-toggle.show, .btn-outline-info:active {
+  background-color: #0d6efd;
+}
+
+.btn-outline-info:hover {
+  background-color: #0d6efd;
+  color: white;
+
+}
+
+.btn-outline-info {
+  color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-check:focus + .btn-outline-info, .btn-outline-info:focus {
+  box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+.read-more-link {
+  color: #0d6efd;
+  text-decoration: none;
+  transition: all .1s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: #2a52be;
+  }
+}
+
+.modal-content {
+  border: none;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+

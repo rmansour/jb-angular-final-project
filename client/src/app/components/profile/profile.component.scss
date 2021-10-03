@@ -1,0 +1,21 @@
+.user__profile {
+  margin-top: 2rem;
+
+  & header {
+    margin-bottom: 1rem;
+  }
+
+  .user__profile--form {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .form-floating {
+      width: 49%;
+      //margin-right: 1rem;
+    }
+  }
+}

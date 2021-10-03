@@ -1,0 +1,17 @@
+<div class="user__order__item__list">
+  <div class="user__order__item__list--single-product-image">
+    <img alt="" class="card-img-top" src="{{'http://localhost:8080/'+singleOrderItem.product?.filename}}">
+  </div>
+
+  <div class="col-3 user__order__item__list--single-product-name ">
+    Product name: <strong>{{singleOrderItem.product?.product_name}}</strong>
+  </div>
+
+  <div class="col-3 user__order__item__list--single-product-price">
+    Price: <strong>{{singleOrderItem.price}}₪</strong>
+  </div>
+
+  <div class="col-3 user__order__item__list--single-product-qnt">
+    Qnt: <strong>{{singleOrderItem.qnt}}</strong>
+  </div>
+</div>

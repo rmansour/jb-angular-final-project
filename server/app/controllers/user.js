@@ -49,11 +49,17 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  console.log(req.body);
+  console.log('req.body', req.body);
 
   const updateObj = req.body;
+  if (Object.values(updateObj).some(x => x === null || x === '' || !x)) {
+    console.log('Empty fields');
+    res.status(500).send({message: `Can't update since one or more fields are empty!`});
+    return;
+  }
+
   try {
-    await Users.update(updateObj, {where: {id: updateObj.id}}, {multi: true}).then((response) => {
+    await Users.update(updateObj, {where: {id: updateObj.userId}}, {multi: true}).then((response) => {
       res.status(200).send(JSON.stringify(response));
     });
 
@@ -66,13 +72,12 @@ exports.updateUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     await Users.findOne({
-      where: {id: req.body.id},
-      attributes: ['email', 'city', 'street', 'IDnum', 'firstName', 'lastName']
+      where: {id: req.body.id}, attributes: ['email', 'city', 'street', 'IDnum', 'firstName', 'lastName']
     }).then(result => {
       res.status(200).send(result);
-    })
+    });
   } catch (e) {
     console.log(e);
-    res.status(500).send({message: "Can't retrieve user by id."})
+    res.status(500).send({message: 'Can\'t retrieve user by id.'});
   }
 };

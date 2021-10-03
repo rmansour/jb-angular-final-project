@@ -1,27 +1,128 @@
 <app-global-user-nav></app-global-user-nav>
-<div class="container mt-4" *ngIf="userService.userInfo; else loggedOut">
-  <header class="jumbotron">
-    <h3>
-      <strong>{{ userService.userInfo.firstName }}'s</strong> Profile
-    </h3>
-  </header>
-  <p>
-    <strong>ID Number:</strong>
-    {{userService.userInfo.IDnum}}
-  </p>
-  <p>
-    <strong>Email:</strong>
-    {{ userService.userInfo.email }}
-  </p>
-  <p>
-    <strong>Address:</strong>
-    {{ userService.userInfo.street }}
-  </p>
 
-  <p>
-    <strong>City:</strong>
-    {{userService.userInfo.city}}
-  </p>
+<div class="user__profile container">
+  <div *ngIf="userService.userInfo; else loggedOut">
+    <header>
+      <h3>
+        <strong>{{ userService.userInfo.firstName }}'s</strong> Profile
+      </h3>
+    </header>
+
+    <form (ngSubmit)="changeUserInfo()" [formGroup]="profileForm"
+          class="user__profile--form">
+      <div class="form-floating mb-3">
+        <input
+          [(ngModel)]="userService.userInfo.firstName"
+          [ngClass]="{'is-invalid': submitted && fProfileForm.firstName.errors}"
+          class="form-control"
+          formControlName="firstName"
+          id="firstName"
+          type="text"
+        />
+        <label for="firstName">First Name:</label>
+        <div *ngIf="submitted && fProfileForm.firstName.errors" class="invalid-feedback">
+          <div *ngIf="fProfileForm.firstName.errors">First name is required!</div>
+          <div *ngIf="fProfileForm.firstName.errors.minlength">
+            First name must be at least 3 characters!
+          </div>
+          <div *ngIf="fProfileForm.firstName.errors.maxlength">
+            First name must be at most 20 characters!
+          </div>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          [(ngModel)]="userService.userInfo.lastName"
+          [ngClass]="{'is-invalid': submitted && fProfileForm.lastName.errors}"
+          class="form-control"
+          formControlName="lastName"
+          id="lastName"
+          type="text"
+
+        />
+        <label for="lastName">Last Name:</label>
+        <div *ngIf="submitted && fProfileForm.lastName.errors" class="invalid-feedback">
+          <div *ngIf="fProfileForm.lastName.errors">Last name is required!</div>
+          <div *ngIf="fProfileForm.lastName.errors.minlength">
+            Last name must be at least 2 characters!
+          </div>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          id="idNum"
+          formControlName="idNum"
+          required
+          type="number"
+          [(ngModel)]="userService.userInfo.IDnum"
+        />
+        <label for="idNum">ID Number:</label>
+        <div *ngIf=" fProfileForm.idNum.errors" class="invalid-feedback">
+          <div *ngIf="fProfileForm.idNum.errors.required">ID number is required!</div>
+          <div *ngIf="fProfileForm.idNum.errors.pattern">ID number must only contain numbers!</div>
+          <div *ngIf="fProfileForm.idNum.errors.minlength">ID number is too short, please enter more than 9 digits
+            and maximum 10!
+          </div>
+        </div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input [ngClass]="{'is-invalid': submitted && fProfileForm.email.errors}"
+               class="form-control"
+               formControlName="email"
+               id="email"
+               required
+               type="email"
+               [(ngModel)]="userService.userInfo.email"
+        />
+        <label for="email">Email:</label>
+      </div>
+      <div *ngIf="fProfileForm.email.errors && submitted" class="invalid-feedback">
+        <div *ngIf="fProfileForm.email.errors.required">Email is required!</div>
+        <div *ngIf="fProfileForm.email.errors.email">
+          Your email must be a valid email address!
+        </div>
+      </div>
+
+      <div class="form-floating">
+        <input [ngClass]="{ 'is-invalid': submitted && fProfileForm.street.errors }"
+               class="form-control"
+               formControlName="street"
+               id="street"
+               required
+               type="text"
+               [(ngModel)]="userService.userInfo.street"
+
+        />
+        <label for="city">Address:</label>
+        <div *ngIf="fProfileForm.street.errors && submitted" class="invalid-feedback">
+          <div *ngIf="fProfileForm.street.errors.required">Address is required!</div>
+        </div>
+      </div>
+
+      <div class="form-floating">
+        <input [ngClass]="{ 'is-invalid': submitted && fProfileForm.city.errors }"
+               class="form-control"
+               formControlName="city"
+               id="city"
+               required
+               type="text"
+               [(ngModel)]="userService.userInfo.city"
+        />
+        <label for="city">City:</label>
+        <div *ngIf="fProfileForm.city.errors && submitted" class="invalid-feedback">
+          <div *ngIf="fProfileForm.city.errors.required">City is required!</div>
+        </div>
+      </div>
+
+      <button (click)="changeUserInfo()" class="btn btn-outline-secondary">Save
+        Changes
+      </button>
+    </form>
+  </div>
 </div>
 
 <ng-template #loggedOut>

@@ -8,7 +8,7 @@ import {TokenStorageService} from './token-storage.service';
 })
 export class ShoppingCartItemsService {
   allShoppingCartItems: Array<ShoppingCartItem> = [];
-  totalPrice?: any = 0;
+  totalPrice?: number = 0;
 
   constructor(private tokenStorageService: TokenStorageService, private apiService: ApiService) {
   }
@@ -21,13 +21,20 @@ export class ShoppingCartItemsService {
   }
 
   async getTotalCartItemsPrice() {
-    if (!this.totalPrice)
-      this.totalPrice = 0;
-
     let tmpUser = this.tokenStorageService.getUser();
     if (tmpUser) {
-      this.totalPrice = await this.apiService.createPostService('/shoppingCart/calculateShoppingCartTotalPrice', {userId: tmpUser.id});
-      console.log(this.totalPrice[0].totalProductPrice);
+      this.totalPrice = await this.apiService.createPostService('/shoppingCart/calculateShoppingCartTotalPrice', {userId: tmpUser.id}) as number;
     }
+    if (this.totalPrice === null)
+      this.totalPrice = 0;
+    console.log(this.totalPrice);
   }
+
+  async deleteShoppingCart() {
+    await this.apiService.createPostService('/shoppingCart/deleteShoppingCart', {userId: this.tokenStorageService.getUser().id});
+    await this.getShoppingCartItemsByUserId();
+    await this.getTotalCartItemsPrice();
+  }
+
+
 }

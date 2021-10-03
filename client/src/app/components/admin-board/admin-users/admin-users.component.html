@@ -63,11 +63,19 @@
         </div>
         <div class="modal-body">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInputUserName"
-                   value="{{singleUser ? singleUser.username : ''}}"
-                   [ngModel]="singleUser ? singleUser.username : ''"
-                   (ngModelChange)="singleUser.username=$event">
-            <label for="floatingInputUserName">Username:</label>
+            <input type="text" class="form-control" id="floatingInputFirstName"
+                   value="{{singleUser ? singleUser.firstName : ''}}"
+                   [ngModel]="singleUser ? singleUser.firstName : ''"
+                   (ngModelChange)="singleUser.firstName=$event">
+            <label for="floatingInputFirstName">First Name:</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInputLastName"
+                   value="{{singleUser ? singleUser.lastName : ''}}"
+                   [ngModel]="singleUser ? singleUser.lastName : ''"
+                   (ngModelChange)="singleUser.lastName=$event">
+            <label for="floatingInputLastName">Last Name:</label>
           </div>
 
           <div class="form-floating mb-3">

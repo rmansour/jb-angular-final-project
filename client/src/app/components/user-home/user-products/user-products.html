@@ -12,9 +12,37 @@
     </div>
   </header>
 
+  <div class="home__user--main--searchProducts">
+    <div class="search-bar p-2 rounded rounded-pill shadow-sm">
+      <div class="input-group">
+        <input (keyup)="productsService.searchProducts($event)" aria-describedby="button-addon1"
+               class="form-control border-0"
+               placeholder="Search for products here!"
+               type="search">
+        <div class="input-group-append">
+          <button class="btn btn-link text-primary" id="button-addon1"
+                  type="submit">
+            <i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="home__user--main--searchProducts--showBtn">
+      <img (click)="hideShowCart()" *ngIf="hideCart"
+           alt="" src="https://img.icons8.com/fluency-systems-regular/48/000000/open-pane.png"/>
+    </div>
+    <div (click)="hideShowCart()" class="home__user--main--searchProducts--hide-cart">
+      <img *ngIf="!hideCart" alt="" src="https://img.icons8.com/fluency-systems-regular/50/000000/close-pane.png"/>
+    </div>
+  </div>
+
   <div class="home__user--main">
-    <div class="home__user--main-products pe-2">
+    <div [ngClass]="hideCart? 'products-full-width' : 'showCart'" class="home__user--main-products pe-2">
+      <header>
+        <h3>{{productsService.categoryName ? productsService.categoryName : 'All Products'}}</h3>
+      </header>
       <div *ngIf="productsService.productsByCategoryId.length > 0 || productsService.productsByCategoryId"
+           [ngClass]="hideCart? 'products-full-width' : ''"
            class="home__user--main-products--container">
         <app-product-card *ngFor="let product of productsService.productsByCategoryId"
                           [product]="product"></app-product-card>
@@ -26,7 +54,9 @@
       </div>
     </div>
 
-    <div class="home__user--main-cart border-start border-2">
+    <div *ngIf="!hideCart" [ngClass]="hideCart ? 'hideCart' : 'showCart'"
+         class="home__user--main-cart border-start border-2">
+
       <div class="home__user--main-cart--header-items-wrapper">
         <header class="home__user--main-cart--header-items-wrapper--header">
           <h3>Your cart:</h3>
@@ -40,13 +70,20 @@
         </div>
       </div>
       <div class="home__user--main-cart--checkoutDV">
-        <p>Total:
-          <b>{{shoppingCartItemsService.totalPrice[0]?.totalProductPrice}}₪</b>
-        </p>
-        <button class="btn btn-secondary" [disabled]="shoppingCartItemsService.allShoppingCartItems.length
-        === 0"
-                (click)="continueToOrderPage()">Proceed to checkout
-        </button>
+        <div class="home__user--main-cart--checkoutDV--totalPrice">
+          <p>Total:
+            <b>{{shoppingCartItemsService.totalPrice}}₪</b>
+          </p>
+        </div>
+        <div class="home__user--main-cart--checkoutDV--btns">
+          <button (click)="shoppingCartItemsService.deleteShoppingCart()" class="btn btn-outline-danger">Clear
+            Cart
+          </button>
+          <button (click)="continueToOrderPage()"
+                  [disabled]="shoppingCartItemsService.allShoppingCartItems.length === 0"
+                  class="btn btn-secondary">Proceed to checkout
+          </button>
+        </div>
       </div>
     </div>
   </div>

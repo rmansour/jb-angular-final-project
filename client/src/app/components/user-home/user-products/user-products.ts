@@ -10,7 +10,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./user-products.scss']
 })
 export class HomeUserComponent implements OnInit {
-  categoryName: string = '';
+  hideCart: boolean = false;
+  hideCartStatus: string = '';
 
   constructor(private router: Router, public categoriesService: CategoriesService, public productsService: ProductsService, public shoppingCartItemsService: ShoppingCartItemsService) {
   }
@@ -26,4 +27,11 @@ export class HomeUserComponent implements OnInit {
     await this.router.navigate(['/order-page']);
   }
 
+  hideShowCart() {
+    this.hideCart = !this.hideCart;
+    if (this.hideCart)
+      this.hideCartStatus = 'hideCart';
+    else
+      this.hideCartStatus = 'showCart';
+  }
 }

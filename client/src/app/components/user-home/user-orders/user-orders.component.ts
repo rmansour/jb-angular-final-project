@@ -27,7 +27,7 @@ export class UserOrdersComponent implements OnInit {
     this.shoppingCartItemsService.getShoppingCartItemsByUserId();
     this.userService.getUserInfo(this.tokenStorage.getUser().id);
     this.shoppingCartItemsService.getTotalCartItemsPrice();
-    
+
 
     this.form = this.formBuilder.group({
       shippingAddress: [
@@ -50,7 +50,7 @@ export class UserOrdersComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(16),
-          Validators.pattern(/^-?(0|[1-9]\d*)?$/)
+          Validators.pattern(/^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/)
         ]
       ],
       shippingDate: [
@@ -63,8 +63,12 @@ export class UserOrdersComponent implements OnInit {
   }
 
   async onSubmit() {
-    console.log('onsubmit');
     this.submitted = true;
     await this.ordersService.insertNewOrder(this.tokenStorage.getUser().id);
+  }
+
+  onReset(): void {
+    this.form.reset();
+    this.submitted = false;
   }
 }

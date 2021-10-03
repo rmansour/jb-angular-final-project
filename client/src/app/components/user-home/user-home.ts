@@ -19,7 +19,6 @@ export class UserHome implements OnInit {
     console.log('/user-home');
     this.userAdminServiceService.checkUser();
     this.user = this.tokenStorageService.getUser();
-    console.log('this.user', this.user);
 
     if (Object.keys(this.user).length === 0 && Object.getPrototypeOf(this.user) === Object.prototype) {
       this.router.navigate(['/login']);

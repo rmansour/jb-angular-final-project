@@ -16,7 +16,6 @@ export class Product {
   filename: string;
   category_id: number;
 
-
   constructor(id: number, product_name: string, price: number, type: string, filename: string, category_id: number) {
     this.id = id;
     this.product_name = product_name;
@@ -55,13 +54,15 @@ export class OrderItem {
   productId: number;
   price: number;
   qnt: number;
+  product?: Product;
 
-  constructor(id: number, orderId: number, productId: number, price: number, qnt: number) {
+  constructor(id: number, orderId: number, productId: number, price: number, qnt: number, product: Product) {
     this.id = id;
     this.orderId = orderId;
     this.productId = productId;
     this.price = price;
     this.qnt = qnt;
+    this.product = product;
   }
 }
 

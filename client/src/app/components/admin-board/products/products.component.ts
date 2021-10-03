@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductsService} from "../../../_services/products.service";
-import {CategoriesService} from "../../../_services/categories.service";
-import {Product} from "../../../models/models";
-import {ApiService} from "../../../_services/api.service";
+import {ProductsService} from '../../../_services/products.service';
+import {CategoriesService} from '../../../_services/categories.service';
+import {Category, Product} from '../../../models/models';
+import {ApiService} from '../../../_services/api.service';
 
 @Component({
   selector: 'app-products',
@@ -10,7 +10,7 @@ import {ApiService} from "../../../_services/api.service";
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  singleProductEdit: Product = new Product(0, '', 0, 'image/jpeg', 'uploads/', 0);
+  singleProductEdit: Product = new Product(0, '', 0, 'image', 'uploads/', 0);
 
   constructor(public productsService: ProductsService, public categoriesService: CategoriesService, private apiService: ApiService) {
   }
@@ -28,7 +28,6 @@ export class ProductsComponent implements OnInit {
 
   handleProductEdit(product: Product) {
     this.singleProductEdit = product;
-    // console.log(this.singleProduct);
   }
 
   handleSelectedCategory($event: any) {

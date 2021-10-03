@@ -1,15 +1,16 @@
-<div class="card product-card" style="width: 20rem;">
-
-  <div class="card-title-and-body">
-    <img alt="" class="card-img-top" src="https://via.placeholder.com/150">
-    <div class="card-body">
+<div class="card product__card" style="width: 19rem;">
+  <div class="product__card--title-body">
+    <div class="product__card--title-body-productImg">
+      <img alt="" class="card-img-top" src="{{'http://localhost:8080/' + product.filename}}">
+    </div>
+    <div class="product__card--title-body--description">
       <h5 class="card-title">{{product.product_name}}</h5>
       <p class="card-text">Price: {{product.price}}₪</p>
     </div>
   </div>
 
-  <div class="form-group border-top card-add-product">
-    <div class="card-add-product-btns ">
+  <div class="form-group border-top product__card--add-product">
+    <div class="product__card--add-product-btns">
       <button (click)="addOrSubtractQnt(2)" [disabled]="itemToSubmit.qnt <= 1"
               class="btn btn-outline-secondary rounded-circle">
         <i class="bi bi-dash-lg"></i>
@@ -19,14 +20,14 @@
       <input (change)="checkItemQntBelowZero($event)"
              [(ngModel)]="this.itemToSubmit.qnt"
              [ngClass]="{'is-invalid': itemToSubmit.qnt < 1}"
-             class="form-control card-add-product-clicked-input"
+             class="form-control product__card--add-product-clicked-input"
              type="text">
       <button (click)="addOrSubtractQnt(1)" class="btn btn-outline-secondary rounded-circle">
         <i class="bi bi-plus-lg"></i>
       </button>
     </div>
 
-    <button (click)="submitProductToOrder()" class="btn btn-outline-primary card-add-product-add-to-cart-btn">
+    <button (click)="submitProductToOrder()" class="btn btn-outline-primary product__card--add-product-add-to-cart-btn">
       Add to cart
     </button>
   </div>

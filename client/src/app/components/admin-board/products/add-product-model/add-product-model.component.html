@@ -1,44 +1,47 @@
 <!-- Modal -->
-<div class="modal fade add-product-modal" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade add-product-modal" id="addProductModal"
+     tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="exampleModalLabel">Add a new product</h5>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
       <div class="modal-body">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputProductName"
-                 [ngModel]="singleProduct.product_name"
-                 (ngModelChange)="singleProduct.product_name=$event">
+        <div class="form-group">
           <label for="floatingInputProductName">Product Name:</label>
+          <input (ngModelChange)="singleProduct.product_name=$event" [ngModel]="singleProduct.product_name"
+                 class="form-control"
+                 id="floatingInputProductName"
+                 type="text">
         </div>
-        <div class="add-product-modal__select-category">
-          <label for="add-product-modal__select-category-select">Select Product Category:</label>
-          <select id="add-product-modal__select-category-select" class="form-select"
-                  aria-label="Default select example" (change)="handleSelectedCategory($event)">
+        <div class="form-group">
+          <label for="floatingInputCategory">Category:</label>
+          <select (change)="handleSelectedCategory($event)" aria-label="Default select example" class="form-select"
+                  id="floatingInputCategory">
             <option selected>Select all products</option>
             <option *ngFor="let category of categoriesService._categories"
                     value="{{category.id}}">{{category.category}}</option>
           </select>
         </div>
-        <label>Product Price:</label>
+
+        <label class="mb-2">Product Price:</label>
         <div class="input-group mb-3">
-          <input type="number" class="form-control" aria-label="Price"
-                 [ngModel]="singleProduct.price"
-                 (ngModelChange)="singleProduct.price=$event"
-                 (click)="select($event)">
+          <input (click)="select($event)" (ngModelChange)="singleProduct.price=$event" [ngModel]="singleProduct.price"
+                 aria-label="Price"
+                 class="form-control"
+                 type="number">
           <span class="input-group-text">₪</span>
         </div>
 
-        <div>
-          image...
+        <div class="mb-3">
+          <label class="form-label" for="formFile">Choose the product's photo:</label>
+          <input (change)="selectFile($event)" class="form-control" id="formFile" type="file">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" (click)="submitNewProduct()">Save
+        <button class="btn btn-outline-danger" data-bs-dismiss="modal" type="button">Close</button>
+        <button (click)="submitNewProduct()" class="btn btn-outline-primary" data-bs-dismiss="modal" type="button">Save
           changes
         </button>
       </div>

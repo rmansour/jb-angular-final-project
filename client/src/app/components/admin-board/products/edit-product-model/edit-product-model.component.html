@@ -1,42 +1,54 @@
-<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="editProductModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Product Edit</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
       </div>
       <div class="modal-body">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputProductName"
-                 value="{{singleProductEdit ? singleProductEdit.product_name : ''}}"
-                 [ngModel]="singleProductEdit ? singleProductEdit.product_name : ''"
-                 (ngModelChange)="singleProductEdit.product_name=$event">
+          <input (ngModelChange)="singleProductEdit.product_name=$event"
+                 [ngModel]="singleProductEdit ? singleProductEdit.product_name : ''" class="form-control"
+                 id="floatingInputProductName"
+                 type="text"
+                 value="{{singleProductEdit ? singleProductEdit.product_name : ''}}">
           <label for="floatingInputProductName">Product Name:</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInputCategoryID"
-                 value="{{singleProductEdit ? singleProductEdit.category_id : ''}}"
-                 [ngModel]="singleProductEdit ? singleProductEdit.category_id : ''"
-                 (ngModelChange)="singleProductEdit.category_id=$event"/>
+          <!--          <div class="form-floating mb-3">-->
+          <!--            <input type="text" class="form-control" id="floatingInputCategoryID"-->
+          <!--                   value="{{singleProductEdit ? singleProductEdit.category_id : ''}}"-->
+          <!--                   [ngModel]="singleProductEdit ? singleProductEdit.category_id : ''"-->
+          <!--                   (ngModelChange)="singleProductEdit.category_id=$event"/>-->
+          <!--            <label for="floatingInputCategoryID">Category ID:</label>-->
+          <select (change)="handleSelectedCategory($event)" aria-label="Default select example"
+                  class="form-select" id="floatingInputCategoryID">
+            <option selected>Select all products</option>
+            <option *ngFor="let category of categoriesService._categories"
+                    value="{{category.id}}">{{category.category}}</option>
+          </select>
           <label for="floatingInputCategoryID">Category ID:</label>
         </div>
         <label>Product Price:</label>
         <div class="input-group mb-3">
-          <input type="number" class="form-control" aria-label="Price"
-                 value="{{singleProductEdit ? singleProductEdit.price : ''}}"
+          <input (click)="select($event)" (ngModelChange)="singleProductEdit.price=$event"
                  [ngModel]="singleProductEdit ? singleProductEdit.price : ''"
-                 (ngModelChange)="singleProductEdit.price=$event"
-                 (click)="select($event)">
+                 aria-label="Price"
+                 class="form-control"
+                 type="number"
+                 value="{{singleProductEdit ? singleProductEdit.price : ''}}">
           <span class="input-group-text">₪</span>
         </div>
 
-        <div>
-
+        <div class="mb-3">
+          <label class="form-label" for="formFile">Select the product's picture</label>
+          <input (change)="selectFile($event)" class="form-control" id="formFile" type="file">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal" (click)="submitProductChanges()">
+        <button class="btn btn-outline-danger" data-bs-dismiss="modal" type="button">Close</button>
+        <button (click)="submitProductChanges()" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                type="button">
           Save
           changes
         </button>

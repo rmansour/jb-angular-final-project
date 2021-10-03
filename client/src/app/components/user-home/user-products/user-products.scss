@@ -2,7 +2,11 @@
 
 .home__user {
   width: 100%;
+  min-width: 100%;
   height: 100%;
+  //margin: 0 auto;
+  //max-width: 1600px;
+
 
   &--header {
     background-color: #ccc !important;
@@ -64,22 +68,59 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    min-height: calc(100vh - 131px);
+    height: calc(100vh - 250px);
+    min-height: calc(100vh - 220px);
+    position: relative;
+
+    &--searchProducts {
+      margin: 1rem 0;
+      position: relative;
+
+      &--hide-cart {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        height: auto;
+        cursor: pointer;
+
+        & img {
+          width: 40px;
+        }
+      }
+
+      &--showBtn {
+        top: 10px;
+        width: 40px;
+        right: 15px;
+        position: absolute;
+        height: auto;
+        z-index: 999;
+
+        & img {
+          width: 40px;
+        }
+      }
+    }
+
 
     &-products {
-      max-height: calc(100vh - 131px);
       min-width: 70%;
+      height: calc(100vh - 23vh);
       width: 70%;
-      padding: 2rem;
+      padding: 0 1rem;
       overflow-y: auto;
 
+      & header {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 1rem;
+        margin-left: 5%;
+      }
 
       &--container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 300px);
+        justify-content: space-around;
 
         &-no-products {
           width: 100%;
@@ -95,22 +136,27 @@
     }
 
     &-cart {
+      transition: ease-in-out 1s;
       display: flex;
       width: calc(100% - 70%);
-      padding: 1rem;
-      height: inherit;
+      padding: 0 1rem;
+      //height: inherit;
       flex-wrap: wrap;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
+
 
       &--header-items-wrapper {
+        padding: .5rem;
 
         &--header {
           height: 2rem;
         }
 
         &--items {
-          height: 650px;
+          max-height: 580px;
+          height: 550px;
           overflow-y: auto;
           overflow-x: hidden;
         }
@@ -120,13 +166,58 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: flex-end;
+        //align-items: flex-end;
 
-        & button {
-          width: 100%;
+        &--totalPrice {
+          display: block;
+          text-align: end;
+        }
+
+        &--btns {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          & > button:first-child {
+            margin-right: auto;
+          }
         }
       }
     }
   }
 }
 
+.hideCart {
+  display: none;
+  visibility: hidden;
+  width: 0;
+}
+
+.showCart {
+  width: calc(100% - 70%);
+  position: relative;
+
+}
+
+.products-full-width {
+  max-width: 100%;
+  width: 100%;
+}
+
+.search-bar {
+  width: 50%;
+  margin: 0 auto;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border: solid .2px rgba(0, 0, 0, .15);
+
+  & input {
+    background-color: white;
+    margin-right: 10px;
+    border-radius: 20px;
+
+    textarea:focus, input:focus {
+      outline: none !important;
+    }
+  }
+}

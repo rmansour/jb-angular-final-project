@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import Swal from 'sweetalert2';
 import {User} from '../models/models';
 import {ApiService} from './api.service';
 
@@ -42,7 +43,27 @@ export class UserService {
     this.userInfo = await this.apiService.createPostService('/users/getUserById', {id: id});
     this.userInfo.creditCardNumber = '';
     this.userInfo.shippingDate = '';
-    console.log(this.userInfo);
+    //console.log(this.userInfo);
+  }
+
+  async updateUserInfo(obj: any) {
+    await this.apiService.createPostService('/users/updateUser', obj).then(result => {
+      if (result)
+        Swal.fire({
+          title: 'User details updated successfully!',
+          html: '',
+          icon: 'success',
+          timer: 2000
+        });
+    }).catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: `Oops...`,
+        showConfirmButton: true,
+        timer: 3000,
+        text: `${err}`
+      });
+    });
   }
 }
 

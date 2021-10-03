@@ -3,13 +3,13 @@
 <div class="container admin__products">
   <header class="admin__products--header">
     <h3>Products:</h3>
-    <button class="btn btn-outline-primary" data-bs-toggle="modal"
-            data-bs-target="#addProductModal">Add Product
+    <button class="btn btn-outline-primary" data-bs-target="#addProductModal"
+            data-bs-toggle="modal">Add Product
     </button>
   </header>
 
   <div class="admin__products--category-select">
-    <select class="form-select" aria-label="Default select example" (change)="handleSelectedCategory($event)">
+    <select (change)="handleSelectedCategory($event)" aria-label="Default select example" class="form-select">
       <option selected>Select all products</option>
       <option *ngFor="let category of categoriesService._categories"
               value="{{category.id}}">{{category.category}}</option>
@@ -34,14 +34,14 @@
           <th scope="row">{{product.id}}</th>
           <td>{{product.product_name}}</td>
           <td>{{product.price}}₪</td>
-          <td>
-            <img src="{{'resources/uploads/' + product.filename}}" alt=""></td>
+          <td class="product-image">
+            <img alt="" src="{{'http://localhost:8080/' + product.filename}}"></td>
           <td class="edit-btn">
-            <i class="fas fa-edit" (click)="handleProductEdit(product)" data-bs-toggle="modal"
-               data-bs-target="#editProductModal"></i>
+            <i (click)="handleProductEdit(product)" class="fas fa-edit" data-bs-target="#editProductModal"
+               data-bs-toggle="modal"></i>
           </td>
           <td class="delete-btn">
-            <button class="btn btn-outline-danger" (click)="handleProductDelete(product.id)">Delete</button>
+            <button (click)="handleProductDelete(product.id)" class="btn btn-outline-danger">Delete</button>
           </td>
         </tr>
         </tbody>
@@ -54,7 +54,6 @@
 
   <app-add-product-model></app-add-product-model>
   <app-edit-product-model [singleProductEdit]="singleProductEdit"></app-edit-product-model>
-  <app-file-upload></app-file-upload>
 </div>
 
 

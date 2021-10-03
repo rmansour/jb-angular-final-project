@@ -1,5 +1,4 @@
 const db = require('../models');
-const sequelize = require('sequelize');
 const ShoppingCartItems = db.shoppingCartItem;
 const Products = db.products;
 
@@ -13,6 +12,19 @@ exports.deleteShoppingCartItems = async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(500).send(JSON.stringify(`Couldn't delete shopping cart items: ${e}`));
+  }
+};
+
+exports.deleteShoppingCart = async (req, res) => {
+  console.log(req.body);
+
+  try {
+    await ShoppingCartItems.destroy({where: {userId: req.body.userId}}).then(result => {
+      res.status(200).send(JSON.stringify(result));
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(JSON.stringify(`Couldn't delete shopping cart: ${e}`));
   }
 };
 
@@ -73,7 +85,8 @@ exports.calculateShoppingCartTotalPrice = async (req, res) => {
     where s.userId = ${req.body.userId};
     `);
 
-    res.status(200).send(stmt[0]);
+    let tmpTotalPrice = stmt[0][0].totalProductPrice;
+    res.status(200).send(tmpTotalPrice);
   } catch (e) {
     console.log(e);
     res.status(500).send({message: `Couldn't retrieve shopping cart items total price.`});

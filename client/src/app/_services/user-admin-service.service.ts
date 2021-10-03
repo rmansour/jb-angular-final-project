@@ -20,12 +20,11 @@ export class UserAdminServiceService {
       this.user = this.tokenStorageService.getUser();
       this.isAdmin = this.user.roles;
     }
-    console.log('this.isAdmin', this.isAdmin, 'this.user', this.user);
+    // console.log('this.isAdmin', this.isAdmin, 'this.user', this.user);
 
   }
 
   logout(): void {
     this.tokenStorageService.signOut();
-    // this.router.navigate(['login']);
   }
 }

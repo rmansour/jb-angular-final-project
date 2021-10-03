@@ -22,7 +22,7 @@ import {EditProductModelComponent} from './components/admin-board/products/edit-
 import {HomeUserComponent} from './components/user-home/user-products/user-products';
 import {UserCartSingleProductComponent} from './components/user-home/user-cart-single-product/user-cart-single-product.component';
 import {UserOrdersComponent} from './components/user-home/user-orders/user-orders.component';
-import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import {UserOrderItemComponent} from './components/user-home/user-orders-list/user-order-item/user-order-item.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
     HomeUserComponent,
     UserCartSingleProductComponent,
     UserOrdersComponent,
-    FileUploadComponent,
+    UserOrderItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,31 +1,58 @@
 <app-global-user-nav></app-global-user-nav>
 <div class="container user__order--div">
   <header class="jumbotron">
-    <h1>Orders</h1>
+    <h1>Your orders</h1>
   </header>
 
   <div class="user__order--div--table">
     <table class="table table-bordered table-responsive table-hover">
       <thead>
       <tr>
-        <th scope="col">Shipping City</th>
         <th scope="col">Shipping Address</th>
+        <th scope="col">Shipping City</th>
         <th scope="col">Order Date</th>
         <th scope="col">Shipping Date</th>
         <th scope="col">Last Four Digits</th>
         <th scope="col">Total Price</th>
+        <th scope="col"></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let order of ordersService.allOrdersByUser">
-        <td>{{order.shippingCity}}</td>
+      <tr (click)="orderItemsService.getOrderItemsById(order)" *ngFor="let order of
+      ordersService.allOrdersByUser">
         <td>{{order.shippingAddress}}</td>
+        <td>{{order.shippingCity}}</td>
         <td>{{order.orderDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{order.shippingDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>********{{order.creditCardNumber}}</td>
         <td>{{order.totalPrice}}₪</td>
+        <td style="text-align: center">
+          <button class="btn btn-primary m-lg-1" data-bs-target="#ordersList" data-bs-toggle="modal" type="button">
+            See Order
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="ordersListLabel" class="modal fade " id="ordersList"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Products</h5>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+      </div>
+      <div class="modal-body">
+        <app-user-order-item
+          *ngFor="let singleOrderItem of orderItemsService.orderItemsByOrderId"
+          [singleOrderItem]="singleOrderItem"></app-user-order-item>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+      </div>
+    </div>
   </div>
 </div>

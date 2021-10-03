@@ -13,13 +13,12 @@ import Swal from 'sweetalert2';
 export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
 
-  itemToSubmit: ShoppingCartItem = new ShoppingCartItem(0, this.userAdminServiceService.user.id, 0, 1, new Product(0, '', 0, 'image/jpeg', 'uploads/', 0));
+  itemToSubmit: ShoppingCartItem = new ShoppingCartItem(0, this.userAdminServiceService.user.id, 0, 1, new Product(0, '', 0, 'image', '', 0));
 
   constructor(public shoppingCartItemsService: ShoppingCartItemsService, private userAdminServiceService: UserAdminServiceService, private apiService: ApiService) {
   }
 
   ngOnInit(): void {
-
     this.itemToSubmit.productId = this.product.id;
   }
 
