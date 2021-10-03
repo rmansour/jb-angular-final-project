@@ -44,6 +44,11 @@
         </ul>
 
         <ul *ngIf="userAdminServiceService.isLoggedIn" class="navbar-nav ml-auto">
+          <li class="nav-item shoppingCart">
+            <i class="bi bi-cart3"></i>
+            <p class="shoppingCart--itemsCount"
+               (click)="showCartOnHomepage()">{{shoppingCartItemsService.allShoppingCartItems.length}}</p>
+          </li>
           <li class="nav-item profile">
             <i class="bi bi-person-circle"></i>
             <a class="nav-link" href="profile" routerLink="/profile">{{ userAdminServiceService.user.firstName }}</a>
