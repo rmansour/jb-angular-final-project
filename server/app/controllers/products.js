@@ -1,6 +1,7 @@
 const db = require('../models');
 const Products = db.products;
-
+const fs = require('fs');
+const files = fs.readdirSync('resources/uploads/');
 exports.getProducts = async (req, res) => {
   console.log(req.body);
 
@@ -113,3 +114,14 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).send(JSON.stringify(e));
   }
 };
+
+exports.getRandomProductImage = async (req, res) => {
+  try {
+    let chosenFile = files[Math.floor(Math.random() * files.length)];
+    res.status(200).send(JSON.stringify(chosenFile));
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({message: `Couldn't get random product image...`});
+  }
+};
+

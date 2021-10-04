@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {ApiService} from './api.service';
 import {Product} from '../models/models';
+import {ApiService} from './api.service';
 import {CategoriesService} from './categories.service';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class ProductsService {
   productsByCategoryId: Array<Product> = [];
   allProductsSelection: number = 0;
   categoryName: string = '';
+  randomPic: unknown = '';
 
   constructor(private api: ApiService, private categoriesService: CategoriesService) {
   }
@@ -18,7 +19,6 @@ export class ProductsService {
   getProductsByCategoryId(id: number) {
     console.log(id);
     this.categoryName = '';
-
     let tmpArr = [...this.allProducts];
 
     if (isNaN(id)) {
@@ -49,6 +49,11 @@ export class ProductsService {
     });
 
     //console.log(this.categoryName);
+  }
+
+  async getRandomProductImage() {
+    this.randomPic = await this.api.createGetService('/products/getRandomProductImage');
+    console.log(this.randomPic);
   }
 
   async getAllProducts() {

@@ -12,35 +12,36 @@
     </div>
   </header>
 
-  <div class="home__user--main--searchProducts">
-    <div class="search-bar p-2 rounded rounded-pill shadow-sm">
-      <div class="input-group">
-        <input (keyup)="productsService.searchProducts($event)" aria-describedby="button-addon1"
-               class="form-control border-0"
-               placeholder="Search for products here!"
-               type="search">
-        <div class="input-group-append">
-          <button class="btn btn-link text-primary" id="button-addon1"
-                  type="submit">
-            <i class="fa fa-search"></i></button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="home__user--main--searchProducts--showBtn">
+  <div class="home__user--main--openCloseCart">
+    <div class="home__user--main--openCloseCart--showBtn">
       <img (click)="hideShowCart()" *ngIf="hideCart"
            alt="" src="https://img.icons8.com/fluency-systems-regular/48/000000/open-pane.png"/>
     </div>
-    <div (click)="hideShowCart()" class="home__user--main--searchProducts--hide-cart">
+    <div (click)="hideShowCart()" class="home__user--main--openCloseCart--hide-cart">
       <img *ngIf="!hideCart" alt="" src="https://img.icons8.com/fluency-systems-regular/50/000000/close-pane.png"/>
     </div>
   </div>
 
   <div class="home__user--main">
-    <div [ngClass]="hideCart? 'products-full-width' : 'showCart'" class="home__user--main-products pe-2">
+    <div [ngClass]="hideCart ? 'products-full-width' : ''" class="home__user--main-products">
       <header>
         <h3>{{productsService.categoryName ? productsService.categoryName : 'All Products'}}</h3>
       </header>
+      <div class="search-bar p-2 rounded rounded-pill shadow-sm">
+        <div class="input-group">
+          <input (keyup)="productsService.searchProducts($event)" aria-describedby="button-addon1"
+                 class="form-control border-0"
+                 placeholder="Search for products here!"
+                 type="search">
+          <div class="input-group-append">
+            <button class="btn btn-link text-primary" id="button-addon1"
+                    type="submit">
+              <i class="fa fa-search"></i>
+
+            </button>
+          </div>
+        </div>
+      </div>
       <div *ngIf="productsService.productsByCategoryId.length > 0 || productsService.productsByCategoryId"
            [ngClass]="hideCart? 'products-full-width' : ''"
            class="home__user--main-products--container">
@@ -54,7 +55,7 @@
       </div>
     </div>
 
-    <div *ngIf="!hideCart" [ngClass]="hideCart ? 'hideCart' : 'showCart'"
+    <div *ngIf="!hideCart" [ngClass]="hideCart ? 'hideCart' : ''"
          class="home__user--main-cart border-start border-2">
 
       <div class="home__user--main-cart--header-items-wrapper">
@@ -65,7 +66,7 @@
         <div class="home__user--main-cart--header-items-wrapper--items">
           <app-user-cart-single-product *ngFor="let singleShoppingCartItem of
       shoppingCartItemsService.allShoppingCartItems" [singleShoppingCartItem]="singleShoppingCartItem"
-                                        class="row mt-3 home__user--main-cart--single-product">
+                                        class="mt-3 home__user--main-cart--single-product">
           </app-user-cart-single-product>
         </div>
       </div>
@@ -81,7 +82,7 @@
           </button>
           <button (click)="continueToOrderPage()"
                   [disabled]="shoppingCartItemsService.allShoppingCartItems.length === 0"
-                  class="btn btn-secondary">Proceed to checkout
+                  class="btn btn-outline-primary">Proceed to checkout
           </button>
         </div>
       </div>

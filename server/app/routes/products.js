@@ -29,6 +29,7 @@ module.exports = function (app) {
   app.use(express.static('resources/uploads/'));
 
   app.get('/products/getProducts', productsController.getProducts);
+  app.get('/products/getRandomProductImage', productsController.getRandomProductImage);
   // app.get('/products/getProductsWithCategories', productsController.getProductsWithCategories);
   app.get('/products/getProductsByCategoryId', productsController.getProductsByCategoryId);
 

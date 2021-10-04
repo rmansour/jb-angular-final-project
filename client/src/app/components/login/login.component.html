@@ -80,7 +80,8 @@
   </div>
   <div class="col-md-4">
     <div class="card card-container login__page-shop-image-container">
-      <img src="https://via.placeholder.com/100x80" alt="">
+      <img alt="" src="{{'http://localhost:8080/' + productsService.randomPic}}">
+
       <div class="login__page-shop-image-container--description">
         <p>{{productsService.allProducts.length}} available products available in our store.</p>
         <p>{{ordersService.totalNumOfOrders ? ordersService.totalNumOfOrders[0].totalOrders + " orders were already made!" : "No orders were made"}}</p>

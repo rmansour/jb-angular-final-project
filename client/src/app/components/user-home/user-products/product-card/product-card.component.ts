@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Product, ShoppingCartItem} from '../../../../models/models';
-import {UserAdminServiceService} from '../../../../_services/user-admin-service.service';
-import {ShoppingCartItemsService} from '../../../../_services/shopping-cart-items.service';
-import {ApiService} from '../../../../_services/api.service';
 import Swal from 'sweetalert2';
+import {ApiService} from '../../../../_services/api.service';
+import {ShoppingCartItemsService} from '../../../../_services/shopping-cart-items.service';
+import {UserAdminServiceService} from '../../../../_services/user-admin-service.service';
+import {Product, ShoppingCartItem} from '../../../../models/models';
 
 @Component({
   selector: 'app-product-card',
@@ -14,6 +14,8 @@ export class ProductCardComponent implements OnInit {
   @Input() product!: Product;
 
   itemToSubmit: ShoppingCartItem = new ShoppingCartItem(0, this.userAdminServiceService.user.id, 0, 1, new Product(0, '', 0, 'image', '', 0));
+
+  disabledBtn: boolean = true;
 
   constructor(public shoppingCartItemsService: ShoppingCartItemsService, private userAdminServiceService: UserAdminServiceService, private apiService: ApiService) {
   }
@@ -35,6 +37,8 @@ export class ProductCardComponent implements OnInit {
   }
 
   addOrSubtractQnt(action: any) {
+    this.disabledBtn = true;
+
     switch (action) {
       case 1:
         this.itemToSubmit.qnt++;
@@ -43,6 +47,8 @@ export class ProductCardComponent implements OnInit {
         this.itemToSubmit.qnt--;
         break;
     }
+    if (this.itemToSubmit.qnt > 1)
+      this.disabledBtn = false;
   }
 
   async submitProductToOrder() {

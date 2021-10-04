@@ -2,13 +2,15 @@
 
 <div class="orders__page">
   <div class="orders__page--shopping-cart-review">
-    <div class="orders__page--shopping-cart-review--header-body">
+    <div class="orders__page--shopping-cart-review--header">
       <header>
         <h2>Your cart:</h2>
-        <button class="btn btn-outline-danger" (click)="shoppingCartItemsService.deleteShoppingCart()">Clear
+        <button (click)="shoppingCartItemsService.deleteShoppingCart()" class="btn btn-outline-danger">Clear
           Cart
         </button>
       </header>
+    </div>
+    <div class="orders__page--shopping-cart-review--body">
       <app-user-cart-single-product
         *ngFor="let shoppingCartItem of shoppingCartItemsService.allShoppingCartItems"
         [singleShoppingCartItem]="shoppingCartItem"></app-user-cart-single-product>

@@ -27,7 +27,7 @@
           <div *ngIf="userAdminServiceService.isLoggedIn
       && userAdminServiceService.isAdmin === 0" class="nav-item global__nav--user-section">
             <li class="nav-item">
-              <a class="nav-link" href="user-order-list" routerLink="/user-order-list">Orders</a>
+              <a class="nav-link" href="user-order-list" routerLink="/user-order-list"><i class="fas fa-history"></i>Orders</a>
             </li>
           </div>
         </ul>
@@ -43,11 +43,10 @@
           </li>
         </ul>
 
-        <ul *ngIf="userAdminServiceService.isLoggedIn" class="navbar-nav ml-auto">
-          <li class="nav-item shoppingCart">
+        <ul *ngIf="userAdminServiceService.isLoggedIn" class="navbar-nav ml-auto navbar-profile-div">
+          <li class="nav-item shoppingCart" (click)="showCartOnHomepage()">
             <i class="bi bi-cart3"></i>
-            <p class="shoppingCart--itemsCount"
-               (click)="showCartOnHomepage()">{{shoppingCartItemsService.allShoppingCartItems.length}}</p>
+            <p class="shoppingCart--itemsCount">{{shoppingCartItemsService.allShoppingCartItems.length}}</p>
           </li>
           <li class="nav-item profile">
             <i class="bi bi-person-circle"></i>
